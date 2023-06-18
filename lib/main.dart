@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import "LoginPage.dart";
+import 'typeOfUser.dart';
 import 'SignUpPage.dart';
 
 void main() {
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Login or Sign Up',
+      title: 'Orlando West High School',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Colors.black,
@@ -35,7 +35,7 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
-    // TODO: Build the landing page UI
+    
     return Scaffold(
       body: Center(
           child: Column(
@@ -53,7 +53,7 @@ class _LandingPageState extends State<LandingPage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                    MaterialPageRoute(builder: (context) => const typeOfUser()),
                   );
                 },
                 child: const Row(
