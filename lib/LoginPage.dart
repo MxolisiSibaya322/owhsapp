@@ -14,6 +14,11 @@ class LoginPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset(
+            "assets/images/badge.png",
+            width: 150,
+            height: 150,
+          ),
             const TextField(
               decoration: InputDecoration(
                 labelText: 'Username',

@@ -15,10 +15,18 @@ class SignUpPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset(
+            "assets/images/badge.png",
+            width: 100,
+            height: 100,
+          ),
             const Text(
-              "Learner details",
+              "Learner details : ",
               textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.4,
+                  fontStyle: FontStyle.italic),
             ),
             const TextField(
               decoration: InputDecoration(
@@ -32,7 +40,7 @@ class SignUpPage extends StatelessWidget {
             ),
             const TextField(
               decoration: InputDecoration(
-                labelText: 'ID number',
+                labelText: 'ID Number',
               ),
             ),
             const SizedBox(height: 16.0),
@@ -54,9 +62,7 @@ class SignUpPage extends StatelessWidget {
             const SizedBox(height: 16.0),
             TextButton(
               // ignore: avoid_types_as_parameter_names
-              onHover: (bool){
-
-              }  ,
+              onHover: (bool) {},
               onPressed: () {
                 Navigator.push(
                   context,

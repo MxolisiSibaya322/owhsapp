@@ -13,10 +13,18 @@ class SignUpPageB extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset(
+            "assets/images/badge.png",
+            width: 100,
+            height: 100,
+          ),
             const Text(
-              "Guardian details",
+              "Guardian details : ",
               textAlign: TextAlign.center,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.4,
+                  fontStyle: FontStyle.italic),
             ),
             const TextField(
               decoration: InputDecoration(
