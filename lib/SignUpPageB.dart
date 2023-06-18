@@ -14,10 +14,10 @@ class SignUpPageB extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-            "assets/images/badge.png",
-            width: 100,
-            height: 100,
-          ),
+              "assets/images/badge.png",
+              width: 100,
+              height: 100,
+            ),
             const Text(
               "Guardian details : ",
               textAlign: TextAlign.center,

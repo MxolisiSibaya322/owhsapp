@@ -15,10 +15,10 @@ class LoginPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-            "assets/images/badge.png",
-            width: 150,
-            height: 150,
-          ),
+              "assets/images/badge.png",
+              width: 150,
+              height: 150,
+            ),
             const TextField(
               decoration: InputDecoration(
                 labelText: 'Username',
