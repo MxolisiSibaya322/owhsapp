@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import "LoginPage.dart";
+import 'SignUpPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,25 +37,25 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     // TODO: Build the landing page UI
     return Scaffold(
-    
       body: Center(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Image.asset(
             "assets/images/badge.png",
-            width: 400,
-            height: 400,
+            width: 350,
+            height: 350,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               ElevatedButton(
                 onPressed: () {
-                  // TODO: Handle login button press
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
                 },
-                style: ButtonStyle(
-                    fixedSize: MaterialStateProperty.all(const Size(200, 10))),
                 child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -63,10 +65,11 @@ class _LandingPageState extends State<LandingPage> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  // TODO: Handle sign-up button press
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUpPage()),
+                  );
                 },
-                style: ButtonStyle(
-                    fixedSize: MaterialStateProperty.all(const Size(200, 10))),
                 child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
