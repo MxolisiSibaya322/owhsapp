@@ -70,7 +70,7 @@ class SignUpPage extends StatelessWidget {
                 );
               },
               child: const Text(
-                'Already have an account? Sign In',
+                'Already have an account? Log In',
                 style: TextStyle(color: Colors.black),
               ),
             ),
