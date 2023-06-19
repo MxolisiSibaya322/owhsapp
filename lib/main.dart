@@ -61,7 +61,7 @@ class _LandingPageState extends State<LandingPage> {
                 child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.person_outline),
+                      Icon(Icons.login_outlined),
                       Text(selectionColor: Colors.white, 'Login')
                     ]),
               ),
@@ -75,7 +75,7 @@ class _LandingPageState extends State<LandingPage> {
                 child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.person_outline),
+                      Icon(Icons.app_registration_outlined),
                       Text(selectionColor: Colors.white, 'Sign Up')
                     ]),
               ),
