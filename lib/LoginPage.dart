@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 
+String userType(String type) {
+  type = type.toUpperCase();
+  return "$type LOGIN";
+}
+
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  final String type;
+
+  const LoginPage({super.key, required this.type});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: Text(userType(type)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -35,6 +42,23 @@ class LoginPage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // Perform login logic here
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        content: const Text(
+                          "Your username or password is incorrect",
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        actions: [
+                          ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text("Try again"))
+                        ],
+                      );
+                    });
               },
               child: const Text('Login'),
             ),

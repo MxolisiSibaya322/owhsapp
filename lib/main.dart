@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'typeOfUser.dart';
+import 'TypeOfUser.dart';
 import 'SignUpPage.dart';
 
 void main() {
@@ -15,11 +15,11 @@ class MyApp extends StatelessWidget {
       title: 'Orlando West High School',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.black,
+          primaryColor: Colors.black,
 
-        // colorScheme: const ColorScheme.dark(primary : Colors.black),
-        primarySwatch: Colors.yellow,
-      ),
+          // colorScheme: const ColorScheme.dark(primary : Colors.black),
+          primarySwatch: Colors.yellow,
+          splashColor: Colors.black),
       home: const LandingPage(),
     );
   }
@@ -35,7 +35,6 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       body: Center(
           child: Column(
@@ -53,7 +52,7 @@ class _LandingPageState extends State<LandingPage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const typeOfUser()),
+                    MaterialPageRoute(builder: (context) => const TypeOfUser()),
                   );
                 },
                 child: const Row(

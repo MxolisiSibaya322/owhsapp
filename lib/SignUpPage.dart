@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'SignUpPageB.dart';
-import 'LoginPage.dart';
+import 'TypeOfUser.dart';
 
 class SignUpPage extends StatelessWidget {
   @override
@@ -66,7 +66,7 @@ class SignUpPage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                  MaterialPageRoute(builder: (context) => const TypeOfUser()),
                 );
               },
               child: const Text(

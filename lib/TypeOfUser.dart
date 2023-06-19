@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'LoginPage.dart';
 
-class typeOfUser extends StatelessWidget {
-  const typeOfUser({super.key});
+class TypeOfUser extends StatelessWidget {
+  const TypeOfUser({super.key});
 
-  void login(BuildContext context, String type) {
+  
+
+  void login(BuildContext context, String typeName) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const LoginPage()),
+      MaterialPageRoute(builder: (context) =>  LoginPage(type: typeName,)),
     );
   }
 
@@ -25,7 +27,7 @@ class typeOfUser extends StatelessWidget {
               const Align(
                 alignment: Alignment.topCenter,
                 child: Text(
-                  "Log in as a : ",
+                  "Log in as : ",
                   style: TextStyle(
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.bold,
@@ -53,7 +55,7 @@ class typeOfUser extends StatelessWidget {
                             login(context, "learner");
                           },
                           child: const Text(
-                            "Learner/Parent",
+                            "Learner/\nGuardian",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           )),
                       const SizedBox(height: 16.0),
