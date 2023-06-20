@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
-// import 'SignUpTypes/SignUpPage.dart';
-import 'LoginPage.dart';
+import '../TypeOfUser.dart';
+import 'SignUpTypes/SignUpPage.dart';
 
-class TypeOfUser extends StatelessWidget {
-  const TypeOfUser({super.key});
-  
+class TypeOfSignUp extends StatelessWidget {
+  const TypeOfSignUp({super.key});
+
+  Widget checkType(BuildContext context, String typeName) {
+    if (typeName == "learner") {
+      return SignUpPage();
+    }
+    if (typeName == "admin") {
+      return SignUpPage();
+    }
+    if (typeName == "teacher") {
+      return SignUpPage();
+    } else {
+      return SignUpPage();
+    }
+  }
 
   void login(BuildContext context, String typeName) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-          builder: (context) => LoginPage(
-                type: typeName,
-              )),
+      MaterialPageRoute(builder: (context) => checkType(context, typeName)),
     );
   }
 
@@ -29,7 +39,7 @@ class TypeOfUser extends StatelessWidget {
               const Align(
                 alignment: Alignment.topCenter,
                 child: Text(
-                  "Log in as : ",
+                  "Sign up as : ",
                   style: TextStyle(
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.bold,
@@ -79,6 +89,22 @@ class TypeOfUser extends StatelessWidget {
                             style: TextStyle(fontWeight: FontWeight.bold),
                           )),
                     ],
+                  ),
+                  const SizedBox(height: 150.0),
+                  TextButton(
+                    // ignore: avoid_types_as_parameter_names
+                    onHover: (bool) {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const TypeOfUser()),
+                      );
+                    },
+                    child: const Text(
+                      'Already have an account? Log In',
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ),
                 ],
               ))

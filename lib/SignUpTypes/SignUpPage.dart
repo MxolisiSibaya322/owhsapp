@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'SignUpPageB.dart';
 
-class SignUpPageB extends StatelessWidget {
+class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign Up Cont.'),
+        title: const Text('Sign Up'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -19,7 +20,7 @@ class SignUpPageB extends StatelessWidget {
               height: 100,
             ),
             const Text(
-              "Guardian details : ",
+              "Learner details : ",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -38,28 +39,26 @@ class SignUpPageB extends StatelessWidget {
             ),
             const TextField(
               decoration: InputDecoration(
-                labelText: 'ID number',
+                labelText: 'ID Number',
               ),
             ),
             const SizedBox(height: 16.0),
             const TextField(
-              obscureText: true,
               decoration: InputDecoration(
-                labelText: 'Password',
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            const TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Repeat Password',
+                labelText: 'Email Address',
               ),
             ),
             const SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: () {},
-              child: const Text('Sign Up'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignUpPageB()),
+                );
+              },
+              child: const Text('Continue'),
             ),
+            const SizedBox(height: 16.0),
           ],
         ),
       ),

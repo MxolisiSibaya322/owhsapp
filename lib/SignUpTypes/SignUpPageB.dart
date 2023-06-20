@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'SignUpPageB.dart';
-import 'TypeOfUser.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPageB extends StatelessWidget {
+  const SignUpPageB({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign Up'),
+        title: const Text('Sign Up Cont.'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -21,7 +21,7 @@ class SignUpPage extends StatelessWidget {
               height: 100,
             ),
             const Text(
-              "Learner details : ",
+              "Guardian details : ",
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -40,39 +40,27 @@ class SignUpPage extends StatelessWidget {
             ),
             const TextField(
               decoration: InputDecoration(
-                labelText: 'ID Number',
+                labelText: 'ID number',
               ),
             ),
             const SizedBox(height: 16.0),
             const TextField(
+              obscureText: true,
               decoration: InputDecoration(
-                labelText: 'Email Address',
+                labelText: 'Password',
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            const TextField(
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: 'Repeat Password',
               ),
             ),
             const SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignUpPageB()),
-                );
-              },
-              child: const Text('Continue'),
-            ),
-            const SizedBox(height: 16.0),
-            TextButton(
-              // ignore: avoid_types_as_parameter_names
-              onHover: (bool) {},
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const TypeOfUser()),
-                );
-              },
-              child: const Text(
-                'Already have an account? Log In',
-                style: TextStyle(color: Colors.black),
-              ),
+              onPressed: () {},
+              child: const Text('Sign Up'),
             ),
           ],
         ),

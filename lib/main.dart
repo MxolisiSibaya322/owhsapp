@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'TypefSignUp.dart';
 import 'TypeOfUser.dart';
-import 'SignUpPage.dart';
+
 // import 'package:firebase_core/firebase_core.dart';
 
 void main() {
@@ -69,7 +70,8 @@ class _LandingPageState extends State<LandingPage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SignUpPage()),
+                    MaterialPageRoute(
+                        builder: (context) => const TypeOfSignUp()),
                   );
                 },
                 child: const Row(

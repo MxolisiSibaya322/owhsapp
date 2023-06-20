@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 String userType(String type) {
+  
   type = type.toUpperCase();
   return "$type LOGIN";
 }
