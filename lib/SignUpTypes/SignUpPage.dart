@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'SignUpPageB.dart';
+import 'SignUpPageB.dart';
 
 class SignUpPage extends StatelessWidget {
   const SignUpPage({super.key});
@@ -56,9 +56,7 @@ class SignUpPage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => Scaffold(
-                              appBar: AppBar(),
-                            )));
+                        builder: (context) => const SignUpPageB()));
               },
               child: const Text('Continue'),
             ),

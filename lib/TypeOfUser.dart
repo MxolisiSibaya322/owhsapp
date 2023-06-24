@@ -4,7 +4,6 @@ import 'LoginPage.dart';
 
 class TypeOfUser extends StatelessWidget {
   const TypeOfUser({super.key});
-  
 
   void login(BuildContext context, String typeName) {
     Navigator.push(
@@ -26,32 +25,34 @@ class TypeOfUser extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 150.0),
-              const Align(
+              Align(
                 alignment: Alignment.topCenter,
-                child: Text(
-                  "Log in as : ",
-                  style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                  ),
+                child: Image.asset(
+                  "assets/images/badge.png",
+                  width: 150,
+                  height: 150,
                 ),
               ),
-              const SizedBox(height: 100.0),
+              const SizedBox(height: 50.0),
               Center(
                   child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Image.asset(
-                  //   "assets/images/badge.png",
-                  //   width: 90,
-                  //   height: 90,
-                  // ),
-
+                  const Text(
+                    "Log in as : ",
+                    style: TextStyle(
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 40.0,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      const SizedBox(height: 16.0),
+                      // const SizedBox(height: 16.0),
                       ElevatedButton(
                           onPressed: () {
                             login(context, "learner");
@@ -60,7 +61,7 @@ class TypeOfUser extends StatelessWidget {
                             "Learner/\nGuardian",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           )),
-                      const SizedBox(height: 16.0),
+                      // const SizedBox(height: 16.0),
                       ElevatedButton(
                           onPressed: () {
                             login(context, "admin");
@@ -69,7 +70,7 @@ class TypeOfUser extends StatelessWidget {
                             "Admin",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           )),
-                      const SizedBox(height: 16.0),
+                      // const SizedBox(height: 16.0),
                       ElevatedButton(
                           onPressed: () {
                             login(context, "teacher");

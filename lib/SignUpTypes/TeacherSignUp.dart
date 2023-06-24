@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-class AdminSignUpPage extends StatelessWidget {
+class TeacherSignUpPage extends StatelessWidget {
+  const TeacherSignUpPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
