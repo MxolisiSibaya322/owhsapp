@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:owhsapp/SignUpTypes/AdminSignUp.dart';
 import '../TypeOfUser.dart';
 import 'SignUpTypes/SignUpPage.dart';
 
@@ -7,15 +8,15 @@ class TypeOfSignUp extends StatelessWidget {
 
   Widget checkType(BuildContext context, String typeName) {
     if (typeName == "learner") {
-      return SignUpPage();
+      return const SignUpPage();
     }
     if (typeName == "admin") {
-      return SignUpPage();
+      return AdminSignUpPage();
     }
     if (typeName == "teacher") {
-      return SignUpPage();
+      return const SignUpPage();
     } else {
-      return SignUpPage();
+      return const SignUpPage();
     }
   }
 

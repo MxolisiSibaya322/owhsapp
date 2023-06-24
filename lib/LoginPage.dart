@@ -1,9 +1,54 @@
 import 'package:flutter/material.dart';
+import 'Learner/LearnerDashboard.dart';
+import 'Admin/AdminDashboard.dart';
+import 'Teacher/TeacherDashboard.dart';
 
 String userType(String type) {
-  
   type = type.toUpperCase();
   return "$type LOGIN";
+}
+
+Widget loginType(String type) {
+  if (type == "admin") {
+    return const AdminDashboard();
+  }
+  if (type == "learner") {
+    return const LearnerDashboard();
+  } else {
+    return const TeacherDashboard();
+  }
+}
+
+bool validateLogin() {
+  return true;
+}
+
+void isSuccessfulLogin(
+    BuildContext context, String type, bool isCorrectDetails) {
+  if (isCorrectDetails) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => loginType(type)),
+    );
+  } else {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: const Text(
+              "Your username or password is incorrect",
+              style: TextStyle(color: Colors.red),
+            ),
+            actions: [
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Try again"))
+            ],
+          );
+        });
+  }
 }
 
 class LoginPage extends StatelessWidget {
@@ -43,23 +88,8 @@ class LoginPage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // Perform login logic here
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        content: const Text(
-                          "Your username or password is incorrect",
-                          style: TextStyle(color: Colors.red),
-                        ),
-                        actions: [
-                          ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text("Try again"))
-                        ],
-                      );
-                    });
+                bool isCorrectDetails = validateLogin();
+                isSuccessfulLogin(context, type, isCorrectDetails);
               },
               child: const Text('Login'),
             ),

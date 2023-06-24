@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'SignUpPageB.dart';
+// import 'SignUpPageB.dart';
 
 class SignUpPage extends StatelessWidget {
+  const SignUpPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,9 +54,11 @@ class SignUpPage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignUpPageB()),
-                );
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Scaffold(
+                              appBar: AppBar(),
+                            )));
               },
               child: const Text('Continue'),
             ),
