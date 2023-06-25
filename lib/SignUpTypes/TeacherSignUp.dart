@@ -7,7 +7,7 @@ class TeacherSignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Admin Sign Up'),
+        title: const Text('Teacher Sign Up'),
       ),
       body: Padding(
           padding: const EdgeInsets.all(16.0),

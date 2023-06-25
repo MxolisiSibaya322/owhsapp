@@ -8,7 +8,7 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign Up'),
+        title: const Text('Learner/Parent Sign Up'),
       ),
       body: Padding(
           padding: const EdgeInsets.all(16.0),
