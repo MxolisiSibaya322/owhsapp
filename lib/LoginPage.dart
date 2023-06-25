@@ -63,39 +63,40 @@ class LoginPage extends StatelessWidget {
         title: Text(userType(type)),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              "assets/images/badge.png",
-              width: 150,
-              height: 150,
+          padding: const EdgeInsets.all(16.0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  "assets/images/badge.png",
+                  width: 150,
+                  height: 150,
+                ),
+                const TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Username',
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                const TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                ElevatedButton(
+                  onPressed: () {
+                    // Perform login logic here
+                    bool isCorrectDetails = validateLogin();
+                    isSuccessfulLogin(context, type, isCorrectDetails);
+                  },
+                  child: const Text('Login'),
+                ),
+              ],
             ),
-            const TextField(
-              decoration: InputDecoration(
-                labelText: 'Username',
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            const TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Password',
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                // Perform login logic here
-                bool isCorrectDetails = validateLogin();
-                isSuccessfulLogin(context, type, isCorrectDetails);
-              },
-              child: const Text('Login'),
-            ),
-          ],
-        ),
-      ),
+          )),
     );
   }
 }

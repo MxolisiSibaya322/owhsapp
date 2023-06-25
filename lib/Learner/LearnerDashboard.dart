@@ -27,7 +27,7 @@ class LearnerDashboard extends StatelessWidget {
         body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("images/background.png"),
+              image: AssetImage("assets/images/background.png"),
               fit: BoxFit.cover,
             ),
           ),

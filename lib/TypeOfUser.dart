@@ -24,7 +24,7 @@ class TypeOfUser extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 150.0),
+              const SizedBox(height: 30.0),
               Align(
                 alignment: Alignment.topCenter,
                 child: Image.asset(
