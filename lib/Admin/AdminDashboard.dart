@@ -52,23 +52,23 @@ class AdminDashboard extends StatelessWidget {
                 children: [
                   SizedBox(height: 50),
                   DashboardButton(label: 'Announcements'),
-                  DashboardButton(label: 'View Marks'),
+                  DashboardButton(label: 'Learners'),
                 ],
               ),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(height: 50),
-                  DashboardButton(label: 'TimeTable'),
-                  DashboardButton(label: 'Learner Portal'),
+                  DashboardButton(label: 'Teachers'),
+                  DashboardButton(label: 'Portal'),
                 ],
               ),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  DashboardButton(label: 'Resources'),
-                ],
-              ),
+              // const Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     DashboardButton(label: 'Resources'),
+              //   ],
+              // ),
               const SizedBox(height: 20),
             ],
           ),
@@ -78,6 +78,12 @@ class AdminDashboard extends StatelessWidget {
 
 class DashboardButton extends StatelessWidget {
   final String label;
+  void dashboardSelector(String label) {
+    if (label == "Announcements") {}
+    if (label == "Learners") {}
+    if (label == "Teachers") {}
+    if (label == "Portal") {}
+  }
 
   const DashboardButton({super.key, required this.label});
 
@@ -88,6 +94,7 @@ class DashboardButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           // Add functionality for each button
+          dashboardSelector(label);
         },
         child: Text(label),
       ),

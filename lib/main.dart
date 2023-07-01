@@ -3,10 +3,11 @@ import 'TypefSignUp.dart';
 import 'TypeOfUser.dart';
 
 // import 'package:firebase_core/firebase_core.dart';
+// import 'firebase_options.dart';
 
 void main() {
   // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -37,7 +38,6 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

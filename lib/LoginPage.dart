@@ -19,7 +19,7 @@ Widget loginType(String type) {
   }
 }
 
-bool validateLogin() {
+bool validateLogin(String username, String password, String type) {
   return true;
 }
 
@@ -53,8 +53,9 @@ void isSuccessfulLogin(
 
 class LoginPage extends StatelessWidget {
   final String type;
-
-  const LoginPage({super.key, required this.type});
+  final TextEditingController _userName = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  LoginPage({super.key, required this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -73,23 +74,30 @@ class LoginPage extends StatelessWidget {
                   width: 150,
                   height: 150,
                 ),
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _userName,
+                  decoration: const InputDecoration(
                     labelText: 'Username',
                   ),
                 ),
                 const SizedBox(height: 16.0),
-                const TextField(
+                TextField(
+                  controller: _password,
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Password',
                   ),
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
+                    String username = _userName.text.trim();
+                    String password = _password.text;
                     // Perform login logic here
-                    bool isCorrectDetails = validateLogin();
+                    bool isCorrectDetails =
+                        validateLogin(username, password, type);
+                    _userName.clear();
+                    _password.clear();
                     isSuccessfulLogin(context, type, isCorrectDetails);
                   },
                   child: const Text('Login'),

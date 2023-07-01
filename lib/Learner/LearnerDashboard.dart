@@ -80,6 +80,13 @@ class DashboardButton extends StatelessWidget {
   final String label;
 
   const DashboardButton({super.key, required this.label});
+  void dashboardSelector(String label) {
+    if (label == "Announcements") {}
+    if (label == "View Marks") {}
+    if (label == "TimeTable") {}
+    if (label == "Learner Portal") {}
+    if (label == "Resources") {}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +95,7 @@ class DashboardButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           // Add functionality for each button
+          dashboardSelector(label);
         },
         child: Text(label),
       ),
