@@ -11,15 +11,15 @@ class TypeOfSignUp extends StatelessWidget {
 
   Widget checkType(BuildContext context, String typeName) {
     if (typeName == "learner") {
-      return const SignUpPage();
+      return SignUpPage();
     }
     if (typeName == "admin") {
-      return const AdminSignUpPage();
+      return AdminSignUpPage();
     }
     if (typeName == "teacher") {
-      return const TeacherSignUpPage();
+      return  TeacherSignUpPage();
     } else {
-      return const SignUpPage();
+      return SignUpPage();
     }
   }
 

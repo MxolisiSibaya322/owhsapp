@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'Learner/LearnerDashboard.dart';
 import 'Admin/AdminDashboard.dart';
@@ -19,8 +21,33 @@ Widget loginType(String type) {
   }
 }
 
+bool doAdmin(String username, String password) {
+  List<String> data = ["mxolisi.gojolo@gmail.com"];
+  // Map<String, String> dict = {"": "", "Surname": ""};
+  // String? surname = dict["surname"];
+
+  if (data.contains("mxolisi.gojolo@gmail.com") && password == "1234") {
+    return true;
+  }
+  return false;
+}
+
+bool doteacher(String username, String password) {
+  return false;
+}
+
+bool dolearner(String username, String password) {
+  return false;
+}
+
 bool validateLogin(String username, String password, String type) {
-  return true;
+  if (type == "admin") {
+    return doAdmin(username, password);
+  } else if (type == "learner") {
+    return dolearner(username, password);
+  } else {
+    return doteacher(username, password);
+  }
 }
 
 void isSuccessfulLogin(
@@ -96,7 +123,7 @@ class LoginPage extends StatelessWidget {
                     // Perform login logic here
                     bool isCorrectDetails =
                         validateLogin(username, password, type);
-                    _userName.clear();
+                    // _userName.clear();
                     _password.clear();
                     isSuccessfulLogin(context, type, isCorrectDetails);
                   },

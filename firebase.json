@@ -1,0 +1,19 @@
+{
+  "database": {
+    "rules": "database.rules.json"
+    
+  },
+  "hosting": {
+    "headers": [
+      {
+        "source": "/__/firebase/init.js",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      }
+    ]
+  }
+}
