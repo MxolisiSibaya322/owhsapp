@@ -11,19 +11,19 @@ class TypeOfSignUp extends StatelessWidget {
 
   Widget checkType(BuildContext context, String typeName) {
     if (typeName == "learner") {
-      return SignUpPage();
+      return const SignUpPage();
     }
     if (typeName == "admin") {
-      return AdminSignUpPage();
+      return const AdminSignUpPage();
     }
     if (typeName == "teacher") {
-      return  TeacherSignUpPage();
+      return TeacherSignUpPage();
     } else {
-      return SignUpPage();
+      return const SignUpPage();
     }
   }
 
-  void login(BuildContext context, String typeName) {
+  void signUp(BuildContext context, String typeName) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => checkType(context, typeName)),
@@ -48,20 +48,39 @@ class TypeOfSignUp extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 150.0),
-            const Align(
+            const Center(
+              child: Text(
+                "SIGNUP AS : ",
+                style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20.0),
+            Align(
                 alignment: Alignment.topCenter,
                 child: Center(
-                  child: Text(
-                    "Sign up as : ",
-                    style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
+                  child: Container(
+                    width: 150,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Colors
+                            .yellow, // Set the color of the border outline
+                        width: 2.0, // Set the width of the border outline
+                      ),
+                    ),
+                    child: Image.asset(
+                      "assets/images/badge.png",
+                      width: 100,
+                      height: 100,
                     ),
                   ),
                 )),
-            const SizedBox(height: 100.0),
+            const SizedBox(height: 20.0),
             Center(
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -72,7 +91,7 @@ class TypeOfSignUp extends StatelessWidget {
                     // const SizedBox(height: 16.0),
                     ElevatedButton(
                         onPressed: () {
-                          login(context, "learner");
+                          signUp(context, "learner");
                         },
                         child: const Text(
                           "Learner/\nGuardian",
@@ -81,7 +100,7 @@ class TypeOfSignUp extends StatelessWidget {
                     // const SizedBox(height: 16.0),
                     ElevatedButton(
                         onPressed: () {
-                          login(context, "admin");
+                          signUp(context, "admin");
                         },
                         child: const Text(
                           "Admin",
@@ -90,7 +109,7 @@ class TypeOfSignUp extends StatelessWidget {
                     // const SizedBox(height: 16.0),
                     ElevatedButton(
                         onPressed: () {
-                          login(context, "teacher");
+                          signUp(context, "teacher");
                         },
                         child: const Text(
                           "Teacher",
@@ -98,7 +117,7 @@ class TypeOfSignUp extends StatelessWidget {
                         )),
                   ],
                 ),
-                const SizedBox(height: 150.0),
+                const SizedBox(height: 50.0),
               ],
             ))
           ],
@@ -116,25 +135,7 @@ class TypeOfSignUp extends StatelessWidget {
             );
           },
           text: 'Already have an account? Log In',
-        )
-
-            //   TextButton(
-            //   // ignore: avoid_types_as_parameter_names
-            //   onHover: (bool) {
-            //     bool ? Colors.blue : Colors.black;
-            //   },
-            //   onPressed: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => const TypeOfUser()),
-            // );
-            //   },
-            //   child:const  Text(
-            //     'Already have an account? Log In',
-            //     style: TextStyle(color: Colors.black),
-            //   ),
-            // ),
-            )
+        ))
       ],
     );
   }

@@ -45,10 +45,21 @@ class _LandingPageState extends State<LandingPage> {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Image.asset(
-            "assets/images/badge.png",
+          Container(
             width: 350,
             height: 350,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: Colors.yellow, // Set the color of the border outline
+                width: 2.0, // Set the width of the border outline
+              ),
+            ),
+            child: Image.asset(
+              "assets/images/badge.png",
+              width: 300,
+              height: 300,
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

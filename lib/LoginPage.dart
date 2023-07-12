@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'Learner/LearnerDashboard.dart';
 import 'Admin/AdminDashboard.dart';
@@ -96,10 +94,22 @@ class LoginPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  "assets/images/badge.png",
+                Container(
                   width: 150,
                   height: 150,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color:
+                          Colors.yellow, // Set the color of the border outline
+                      width: 2.0, // Set the width of the border outline
+                    ),
+                  ),
+                  child: Image.asset(
+                    "assets/images/badge.png",
+                    width: 100,
+                    height: 100,
+                  ),
                 ),
                 TextField(
                   controller: _userName,

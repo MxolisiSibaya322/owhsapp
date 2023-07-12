@@ -21,10 +21,22 @@ class TeacherSignUpPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  "assets/images/badge.png",
-                  width: 100,
-                  height: 100,
+                Container(
+                  width: 150,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color:
+                          Colors.yellow, // Set the color of the border outline
+                      width: 2.0, // Set the width of the border outline
+                    ),
+                  ),
+                  child: Image.asset(
+                    "assets/images/badge.png",
+                    width: 100,
+                    height: 100,
+                  ),
                 ),
                 const Text(
                   "Teacher details : ",

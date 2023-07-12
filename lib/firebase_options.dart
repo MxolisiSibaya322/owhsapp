@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '569357099758',
     projectId: 'owhs-b725d',
     authDomain: 'owhs-b725d.firebaseapp.com',
+    databaseURL: 'https://owhs-b725d-default-rtdb.firebaseio.com',
     storageBucket: 'owhs-b725d.appspot.com',
   );
 
@@ -57,6 +58,7 @@ class DefaultFirebaseOptions {
     appId: '1:569357099758:android:b79c9826c86adcd00d89ff',
     messagingSenderId: '569357099758',
     projectId: 'owhs-b725d',
+    databaseURL: 'https://owhs-b725d-default-rtdb.firebaseio.com',
     storageBucket: 'owhs-b725d.appspot.com',
   );
 
@@ -65,6 +67,7 @@ class DefaultFirebaseOptions {
     appId: '1:569357099758:ios:105a4337a2b1eb760d89ff',
     messagingSenderId: '569357099758',
     projectId: 'owhs-b725d',
+    databaseURL: 'https://owhs-b725d-default-rtdb.firebaseio.com',
     storageBucket: 'owhs-b725d.appspot.com',
     iosClientId: '569357099758-tj79jr3rjtuda6ajq561n1no2pbf8r3a.apps.googleusercontent.com',
     iosBundleId: 'com.example.owhsapp',
@@ -75,6 +78,7 @@ class DefaultFirebaseOptions {
     appId: '1:569357099758:ios:3cb0f27eede309b90d89ff',
     messagingSenderId: '569357099758',
     projectId: 'owhs-b725d',
+    databaseURL: 'https://owhs-b725d-default-rtdb.firebaseio.com',
     storageBucket: 'owhs-b725d.appspot.com',
     iosClientId: '569357099758-lfsiktrcfif6p8ga9k73l0ss8f51o4v2.apps.googleusercontent.com',
     iosBundleId: 'com.example.owhsapp.RunnerTests',
