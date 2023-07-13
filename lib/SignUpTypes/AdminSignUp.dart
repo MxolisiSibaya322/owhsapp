@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import '../DetailCollection/AdminDetailsCollection.dart';
 
@@ -27,6 +29,13 @@ Widget loadingPage() {
 }
 
 class _AdminSignUpPageState extends State<AdminSignUpPage> {
+  bool isMatchingPassword = true;
+  checkMatch(String value) {
+    setState(() {
+      isMatchingPassword = value == password.text;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,23 +101,36 @@ class _AdminSignUpPageState extends State<AdminSignUpPage> {
                           labelText: 'Email Address',
                         ),
                       ),
+                      TextField(
+                        controller: password,
+                        decoration: const InputDecoration(
+                          labelText: 'Password',
+                        ),
+                      ),
+                      TextField(
+                        controller: repeatpassword,
+                        onChanged: checkMatch,
+                        decoration: InputDecoration(
+                          labelText: 'Repeat password',
+                          errorText: isMatchingPassword
+                              ? null
+                              : "passwords should match",
+                        ),
+                      ),
                       const SizedBox(height: 16.0),
                       ElevatedButton(
                         onPressed: () {
-                          setState(() {
+                          setState(() async {
                             isLoading = true;
-                            validateAdminDetails(context);
+                            if (await isValidAdmin(context)) {
+                              isLoading = false;
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const Placeholder()));
+                            }
                           });
-                          setState(() {
-                            isLoading = false;
-                          });
-
-                          if (isValidAdmin(context)) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Placeholder()));
-                          }
                         },
                         child: const Text('Sign Up'),
                       ),

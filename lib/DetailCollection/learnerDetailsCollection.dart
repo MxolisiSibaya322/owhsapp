@@ -44,6 +44,10 @@ errorMessage(BuildContext context, String err) {
 }
 
 Future<dynamic> validateInputA() async {
+  
+}
+
+Future<bool> isValidA(BuildContext context) async {
   grade = gradeController.text.trim().toUpperCase();
   names = namess.text.trim().toUpperCase();
   surname = surnames.text.trim().toUpperCase();
@@ -57,9 +61,6 @@ Future<dynamic> validateInputA() async {
       break;
     }
   }
-}
-
-bool isValidA(BuildContext context) {
   if (userDetails.isEmpty) {
     errorMessage(context,
         "ID Number $idNumber does not match any of the registered students in $grade");
@@ -80,15 +81,14 @@ bool isValidA(BuildContext context) {
   return true;
 }
 
-validateInputB() {
+bool isValidB(BuildContext context) {
   gnames = gnamesController.text.trim().toUpperCase();
   gsurname = gsurnameController.text.trim().toUpperCase();
   password = passwordController.text.trim().toUpperCase();
   repeatPassword = repeatpasswordController.text.trim().toUpperCase();
-}
 
-bool isValidB(BuildContext context) {
   Map<String, dynamic> guardianDetails = userDetails["GUARDIAN"];
+
   if (guardianDetails['NAME'] != gnames ||
       guardianDetails["SURNAME"] != gsurname) {
     errorMessage(

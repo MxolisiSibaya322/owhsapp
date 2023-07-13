@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:owhsapp/Authentication/ValidateSignUp.dart';
 
@@ -39,7 +41,7 @@ errorMessage(BuildContext context, String err) {
       });
 }
 
-validateAdminDetails(BuildContext context) async {
+Future<bool> isValidAdmin(BuildContext context) async {
   admins = await getAdmins("admins");
   name = names.text.trim().toUpperCase();
   surnames = surname.text.trim().toUpperCase();
@@ -58,9 +60,6 @@ validateAdminDetails(BuildContext context) async {
       adminDetails = admin;
     }
   }
-}
-
-bool isValidAdmin(BuildContext context) {
   if (adminDetails.isEmpty) {
     errorMessage(context,
         "ID Number: $idNum does not match any of the registered admins in Orlando West High");
@@ -69,12 +68,12 @@ bool isValidAdmin(BuildContext context) {
 
   if (adminDetails["NAME"].trim() != name) {
     errorMessage(context,
-        "the name(s) :$names do not match that of the admin with ID number $idNumber");
+        "the name(s) :$name do not match that of the admin with ID number $idNum");
     return false;
   }
   if (admins["SURNAME"].trim() != surnames) {
     errorMessage(context,
-        "the surname :$surname do not match that of the learner with ID number $idNumber");
+        "the surname :$surnames do not match that of the learner with ID number $idNum");
     return false;
   }
 

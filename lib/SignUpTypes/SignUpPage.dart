@@ -122,9 +122,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
-                  onPressed: () {
-                    validateInputA();
-                    if (isValidA(context)) {
+                  onPressed: () async {
+                    if (await isValidA(context)) {
+                      // ignore: use_build_context_synchronously
                       Navigator.push(
                           context,
                           MaterialPageRoute(

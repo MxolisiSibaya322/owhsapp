@@ -1,13 +1,17 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 
-class TeacherSignUpPage extends StatelessWidget {
-  TeacherSignUpPage({super.key});
-  final TextEditingController _names = TextEditingController();
-  final TextEditingController _surname = TextEditingController();
-  final TextEditingController _password = TextEditingController();
-  final TextEditingController _idNumber = TextEditingController();
-  final TextEditingController _repeatpassword = TextEditingController();
-  final TextEditingController _email = TextEditingController();
+import '../DetailCollection/TeacherDetailsCollection.dart';
+
+class TeacherSignUpPage extends StatefulWidget {
+  const TeacherSignUpPage({super.key});
+
+  @override
+  State<TeacherSignUpPage> createState() => _TeacherSignUpPageState();
+}
+
+class _TeacherSignUpPageState extends State<TeacherSignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,45 +51,41 @@ class TeacherSignUpPage extends StatelessWidget {
                       fontStyle: FontStyle.italic),
                 ),
                 TextField(
-                  controller: _names,
+                  controller: teacherNames,
                   decoration: const InputDecoration(
                     labelText: 'Names (as they appear on ID)',
                   ),
                 ),
                 TextField(
-                  controller: _surname,
+                  controller: teacherSurname,
                   decoration: const InputDecoration(
                     labelText: 'Surname',
                   ),
                 ),
                 TextField(
-                  controller: _idNumber,
+                  controller: teacherIdNumber,
                   decoration: const InputDecoration(
                     labelText: 'ID Number',
                   ),
                 ),
                 const SizedBox(height: 16.0),
                 TextField(
-                  controller: _email,
+                  controller: teacherEmail,
                   decoration: const InputDecoration(
                     labelText: 'Email Address',
                   ),
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
-                  onPressed: () {
-                    String names = _names.text;
-                    String surname = _surname.text;
-                    String password = _password.text;
-                    String repeatPassword = _repeatpassword.text;
-                    String email = _email.text;
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Text("welcome")),
-                    );
+                  onPressed: () async {
+                    if (await isValidTeacher(context)) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Placeholder()));
+                    }
                   },
-                  child: const Text('Continue'),
+                  child: const Text('Sign Up'),
                 ),
                 const SizedBox(height: 16.0),
               ],

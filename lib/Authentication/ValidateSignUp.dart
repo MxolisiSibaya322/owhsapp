@@ -4,6 +4,7 @@ final _db = FirebaseFirestore.instance;
 Map<String, dynamic> allStudents = {};
 Map<String, dynamic> students = {};
 Map<String, dynamic> admins = {};
+Map<String, dynamic> teachers = {};
 
 Future<Map<String, dynamic>> getStudents(String classname) async {
   await _db
@@ -45,4 +46,18 @@ Future<Map<String, dynamic>> getAdmins(String position) async {
   );
 
   return admins;
+}
+
+Future<Map<String, dynamic>> getTeachers() async {
+  await _db.collection("teachers").get().then(
+    (querySnapshot) {
+      for (var docSnapshot in querySnapshot.docs) {
+        teachers[docSnapshot.id] = docSnapshot.data();
+      }
+      
+    },
+    onError: (e) => admins,
+  );
+  print(teachers);
+  return teachers;
 }

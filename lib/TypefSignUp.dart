@@ -17,7 +17,7 @@ class TypeOfSignUp extends StatelessWidget {
       return const AdminSignUpPage();
     }
     if (typeName == "teacher") {
-      return TeacherSignUpPage();
+      return const TeacherSignUpPage();
     } else {
       return const SignUpPage();
     }

@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import '../DetailCollection/learnerDetailsCollection.dart';
 import '../LoginPage.dart';
 
-class SignUpPageB extends StatelessWidget {
+class SignUpPageB extends StatefulWidget {
   const SignUpPageB({super.key});
+
+  @override
+  State<SignUpPageB> createState() => _SignUpPageBState();
+}
+
+class _SignUpPageBState extends State<SignUpPageB> {
   void login(BuildContext context, String typeName) {
     Navigator.push(
       context,
@@ -12,6 +18,13 @@ class SignUpPageB extends StatelessWidget {
                 type: typeName,
               )),
     );
+  }
+
+  bool isMatchingPassword = true;
+  checkMatch(String value) {
+    setState(() {
+      isMatchingPassword = value == passwordController.text;
+    });
   }
 
   @override
@@ -75,15 +88,17 @@ class SignUpPageB extends StatelessWidget {
                 const SizedBox(height: 16.0),
                 TextField(
                   controller: repeatpasswordController,
+                  onChanged: checkMatch,
                   obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Repeat Password',
-                  ),
+                  decoration: InputDecoration(
+                      labelText: 'Repeat Password',
+                      errorText:
+                          isMatchingPassword ? null : "passwords should match"),
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
-                    validateInputB();
+                    
                     if (isValidB(context)) {
                       login(context, "learner");
                     }
