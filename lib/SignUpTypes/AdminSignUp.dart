@@ -1,10 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:owhsapp/Authentication/EmailVerifier.dart';
+import '../Authentication/PasswordStrength.dart';
 import '../DetailCollection/AdminDetailsCollection.dart';
 
+// ignore: must_be_immutable
 class AdminSignUpPage extends StatefulWidget {
-  const AdminSignUpPage({super.key});
+  String type;
+  AdminSignUpPage({super.key, required this.type});
 
   @override
   State<AdminSignUpPage> createState() => _AdminSignUpPageState();
@@ -29,11 +33,25 @@ Widget loadingPage() {
 }
 
 class _AdminSignUpPageState extends State<AdminSignUpPage> {
+  late String _type;
   bool isMatchingPassword = true;
+  PasswordStrength passwordStrength = PasswordStrength.Weak;
   checkMatch(String value) {
     setState(() {
       isMatchingPassword = value == password.text;
     });
+  }
+
+  void checkPassword(String value) {
+    setState(() {
+      passwordStrength = checkPasswordStrength(value);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _type = widget.type;
   }
 
   @override
@@ -103,12 +121,22 @@ class _AdminSignUpPageState extends State<AdminSignUpPage> {
                       ),
                       TextField(
                         controller: password,
+                        obscureText: true,
+                        onChanged: checkPassword,
                         decoration: const InputDecoration(
                           labelText: 'Password',
                         ),
                       ),
+                      Text(
+                        'Password Strength: ${passwordStrength.toString().split('.').last}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: getColorForPasswordStrength(passwordStrength),
+                        ),
+                      ),
                       TextField(
                         controller: repeatpassword,
+                        obscureText: true,
                         onChanged: checkMatch,
                         decoration: InputDecoration(
                           labelText: 'Repeat password',
@@ -119,18 +147,31 @@ class _AdminSignUpPageState extends State<AdminSignUpPage> {
                       ),
                       const SizedBox(height: 16.0),
                       ElevatedButton(
-                        onPressed: () {
-                          setState(() async {
-                            isLoading = true;
-                            if (await isValidAdmin(context)) {
-                              isLoading = false;
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const Placeholder()));
-                            }
-                          });
+                        onPressed: () async {
+                          // setState(() {
+                          //   isLoading = true;
+                          // });
+                          if (passwordStrength != PasswordStrength.Strong) {
+                            await errorMessage(
+                                context, "Please set a stronger paasword");
+                            return;
+                          }
+                          if (!isMatchingPassword) {
+                            await errorMessage(
+                                context, "Passwords should match");
+                            return;
+                          }
+
+                          if (await isValidAdmin(context)) {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => EmailVerifier(
+                                          userDetails: toJson(),
+                                          code: codeGenerated,
+                                          type: _type,
+                                        )));
+                          }
                         },
                         child: const Text('Sign Up'),
                       ),

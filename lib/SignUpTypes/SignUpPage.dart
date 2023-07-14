@@ -2,14 +2,24 @@ import 'package:flutter/material.dart';
 import '../DetailCollection/learnerDetailsCollection.dart';
 import 'SignUpPageB.dart';
 
+// ignore: must_be_immutable
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+  String type;
+  SignUpPage({super.key, required this.type});
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  late String _type;
+
+  @override
+  void initState() {
+    super.initState();
+    _type = widget.type; // Access the title variable from the widget
+  }
+
   bool isValidName = true;
   bool isValidSurname = true;
   bool isValidID = true;
@@ -128,7 +138,11 @@ class _SignUpPageState extends State<SignUpPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const SignUpPageB()));
+                              builder: (context) => SignUpPageB(
+                                    names: names,
+                                    surname: surname,
+                                    type: _type,
+                                  )));
                     }
                   },
                   child: const Text('Continue'),

@@ -1,5 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:owhsapp/Authentication/ValidateSignUp.dart';
+
+import '../MailSender.dart';
 
 final TextEditingController teacherNames = TextEditingController();
 final TextEditingController teacherSurname = TextEditingController();
@@ -10,6 +14,7 @@ final TextEditingController teacherEmail = TextEditingController();
 
 Map<String, dynamic> teachers = {};
 Map<String, dynamic> teacherDetails = {};
+String codeGenerated = "OWHSAPP";
 
 String tNames = "";
 String tSurname = "";
@@ -36,10 +41,6 @@ errorMessage(BuildContext context, String err) {
           ],
         );
       });
-}
-
-validateTeacher() async {
-  
 }
 
 Future<bool> isValidTeacher(BuildContext context) async {
@@ -71,6 +72,21 @@ Future<bool> isValidTeacher(BuildContext context) async {
         "the surname : $tSurname do not match that of the teacher with ID number $teacherID");
     return false;
   }
+  sendVerificationCode(tEmail, codeGenerated);
+  if (errMessageMailSender == "") {
+    return true;
+  } else {
+    errorMessage(context, errMessageMailSender);
+    return false;
+  }
+}
 
-  return true;
+toJson() {
+  return {
+    "name": tNames,
+    "surname": tSurname,
+    "email": tEmail,
+    "id number": teacherID,
+    "password": tPassword,
+  };
 }

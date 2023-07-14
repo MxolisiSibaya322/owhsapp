@@ -1,7 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:owhsapp/Authentication/Authentication.dart';
 import 'package:owhsapp/Authentication/ValidateSignUp.dart';
+import 'package:random_string/random_string.dart';
+import '../MailSender.dart';
 
 final TextEditingController names = TextEditingController();
 final TextEditingController surname = TextEditingController();
@@ -20,6 +23,7 @@ String idNum = "";
 String emails = "";
 String typeOfAdmin = "";
 bool isLoading = false;
+String codeGenerated = "";
 
 errorMessage(BuildContext context, String err) {
   showDialog(
@@ -66,16 +70,32 @@ Future<bool> isValidAdmin(BuildContext context) async {
     return false;
   }
 
-  if (adminDetails["NAME"].trim() != name) {
+  if (adminDetails["NAME"] != name) {
     errorMessage(context,
         "the name(s) :$name do not match that of the admin with ID number $idNum");
     return false;
   }
-  if (admins["SURNAME"].trim() != surnames) {
+  if (adminDetails["SURNAME"].trim() != surnames) {
     errorMessage(context,
         "the surname :$surnames do not match that of the learner with ID number $idNum");
     return false;
   }
-
+  codeGenerated = randomAlphaNumeric(7);
+  // await sendVerificationCode(emails, codeGenerated);
+  // if (errMessageMailSender == "") {
   return true;
+  // } else {
+  //   errorMessage(context, errMessageMailSender);
+  //   return false;
+  // }
+}
+
+Map<String, String> toJson() {
+  return {
+    "name": name,
+    "surname": surnames,
+    "email": emails,
+    "id number": idNum,
+    "password": passwords,
+  };
 }

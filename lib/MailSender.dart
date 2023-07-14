@@ -1,0 +1,25 @@
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
+
+String errMessageMailSender = "";
+Future<void> sendVerificationCode(String email, String verificationCode) async {
+  String username = 'mxolisi.gojolo@gmail.com';
+  String password = 'xaswmdhrmnfuvqzh';
+
+  final smtpServer = gmail(username, password);
+  final message = Message()
+    ..from = Address(username, "ORLANDO WEST HIGH SCHOOL APP")
+    ..recipients.add(email)
+    ..subject = 'Verification Code'
+    ..text =
+        'Welcome to the Orlando West High internal APP\n\nYour verification code is: $verificationCode';
+
+  try {
+    final sendReport = await send(message, smtpServer);
+    print('Message sent: ' + sendReport.toString());
+  } catch (e) {
+    errMessageMailSender =
+        'Error occurred while sending verification email: $e';
+    print(errMessageMailSender);
+  }
+}

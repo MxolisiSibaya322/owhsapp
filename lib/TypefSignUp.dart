@@ -1,4 +1,4 @@
-import 'package:flutter/gestures.dart';
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:owhsapp/SignUpTypes/AdminSignUp.dart';
 import 'package:owhsapp/SignUpTypes/TeacherSignUp.dart';
@@ -11,15 +11,19 @@ class TypeOfSignUp extends StatelessWidget {
 
   Widget checkType(BuildContext context, String typeName) {
     if (typeName == "learner") {
-      return const SignUpPage();
+      return SignUpPage(type: typeName);
     }
     if (typeName == "admin") {
-      return const AdminSignUpPage();
+      return AdminSignUpPage(
+        type: typeName,
+      );
     }
     if (typeName == "teacher") {
-      return const TeacherSignUpPage();
+      return TeacherSignUpPage(
+        type: typeName,
+      );
     } else {
-      return const SignUpPage();
+      return SignUpPage(type: typeName);
     }
   }
 
@@ -28,14 +32,6 @@ class TypeOfSignUp extends StatelessWidget {
       context,
       MaterialPageRoute(builder: (context) => checkType(context, typeName)),
     );
-  }
-
-  hoverBlue(PointerHoverEvent event) {
-    // setState(() {
-    //   child = Colors.red;
-    //   x = details.position.dx;
-    //   y = details.position.dy;
-    // });
   }
 
   @override

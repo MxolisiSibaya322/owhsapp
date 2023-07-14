@@ -14,6 +14,7 @@ final TextEditingController repeatpasswordController = TextEditingController();
 
 Map<String, dynamic> studentDatabase = {};
 Map<String, dynamic> userDetails = {};
+String codeGenerated = "OWHSAPP";
 String names = "";
 String surname = "";
 String grade = "";
@@ -41,10 +42,6 @@ errorMessage(BuildContext context, String err) {
           ],
         );
       });
-}
-
-Future<dynamic> validateInputA() async {
-  
 }
 
 Future<bool> isValidA(BuildContext context) async {

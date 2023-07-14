@@ -8,7 +8,7 @@ bool weakPassword = false;
 bool userNotFound = false;
 bool wrongPassword = false;
 bool userDisabled = false;
-
+String errMesssage = "";
 Future<void> registerUser(String email, String password) async {
   try {
     await _auth.createUserWithEmailAndPassword(
@@ -23,6 +23,9 @@ Future<void> registerUser(String email, String password) async {
     if (e.code == "weak-password") {
       weakPassword = true;
     }
+
+    errMesssage = e.code;
+    
   }
 }
 

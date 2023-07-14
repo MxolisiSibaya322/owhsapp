@@ -1,15 +1,36 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
+import 'package:owhsapp/SignUpTypes/SignUpComplete.dart';
 import '../DetailCollection/learnerDetailsCollection.dart';
 import '../LoginPage.dart';
 
 class SignUpPageB extends StatefulWidget {
-  const SignUpPageB({super.key});
+  String type;
+  String names;
+  String surname;
+  SignUpPageB(
+      {super.key,
+      required this.names,
+      required this.surname,
+      required this.type});
 
   @override
   State<SignUpPageB> createState() => _SignUpPageBState();
 }
 
 class _SignUpPageBState extends State<SignUpPageB> {
+  late String _type;
+  late String _names;
+  late String _surname;
+  @override
+  void initState() {
+    super.initState();
+    _type = widget.type;
+    _names = widget.names;
+    _surname = widget.surname;
+  }
+
   void login(BuildContext context, String typeName) {
     Navigator.push(
       context,
@@ -98,9 +119,15 @@ class _SignUpPageBState extends State<SignUpPageB> {
                 const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () {
-                    
                     if (isValidB(context)) {
-                      login(context, "learner");
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignUpComplete(
+                                    names: _names,
+                                    surname: _surname,
+                                    type: _type,
+                                  )));
                     }
                   },
                   child: const Text('Sign Up'),

@@ -19,10 +19,10 @@ Widget loginType(String type) {
   }
 }
 
+
 bool doAdmin(String username, String password) {
   List<String> data = ["mxolisi.gojolo@gmail.com"];
-  // Map<String, String> dict = {"": "", "Surname": ""};
-  // String? surname = dict["surname"];
+
 
   if (data.contains("mxolisi.gojolo@gmail.com") && password == "1234") {
     return true;

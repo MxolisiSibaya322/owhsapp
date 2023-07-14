@@ -54,10 +54,10 @@ Future<Map<String, dynamic>> getTeachers() async {
       for (var docSnapshot in querySnapshot.docs) {
         teachers[docSnapshot.id] = docSnapshot.data();
       }
-      
+
     },
     onError: (e) => admins,
   );
-  print(teachers);
+
   return teachers;
 }

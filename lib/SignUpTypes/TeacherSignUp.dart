@@ -1,17 +1,46 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, must_be_immutable
 
 import 'package:flutter/material.dart';
 
+import '../Authentication/EmailVerifier.dart';
 import '../DetailCollection/TeacherDetailsCollection.dart';
 
 class TeacherSignUpPage extends StatefulWidget {
-  const TeacherSignUpPage({super.key});
+  String type;
+  TeacherSignUpPage({super.key, required this.type});
 
   @override
   State<TeacherSignUpPage> createState() => _TeacherSignUpPageState();
 }
 
 class _TeacherSignUpPageState extends State<TeacherSignUpPage> {
+  late String _type;
+  bool isMatchingPassword = true;
+  bool missingDigit = false;
+  bool missingUpper = false;
+  bool missingLower = false;
+  bool missingSpeacial = false;
+
+  errStrength() {
+    if (missingDigit) {}
+    if (missingDigit) {}
+    if (missingDigit) {}
+    if (missingDigit) {}
+  }
+
+  checkStrength(String value) {}
+  checkMatch(String value) {
+    setState(() {
+      isMatchingPassword = value == teacherPassword.text;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _type = widget.type; // Access the title variable from the widget
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,6 +104,22 @@ class _TeacherSignUpPageState extends State<TeacherSignUpPage> {
                     labelText: 'Email Address',
                   ),
                 ),
+                TextField(
+                  controller: teacherPassword,
+                  onChanged: checkStrength,
+                  decoration: const InputDecoration(
+                    labelText: 'Password',
+                  ),
+                ),
+                TextField(
+                  controller: teacherRepeatpassword,
+                  onChanged: checkMatch,
+                  decoration: InputDecoration(
+                    labelText: 'Repeat password',
+                    errorText:
+                        isMatchingPassword ? null : "passwords should match",
+                  ),
+                ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () async {
@@ -82,8 +127,13 @@ class _TeacherSignUpPageState extends State<TeacherSignUpPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const Placeholder()));
+                              builder: (context) => EmailVerifier(
+                                    userDetails: toJson(),
+                                    code: codeGenerated,
+                                    type: _type,
+                                  )));
                     }
+                    
                   },
                   child: const Text('Sign Up'),
                 ),
