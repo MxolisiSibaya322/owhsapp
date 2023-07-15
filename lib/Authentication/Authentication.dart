@@ -9,9 +9,11 @@ bool userNotFound = false;
 bool wrongPassword = false;
 bool userDisabled = false;
 String errMesssage = "";
-Future<void> registerUser(String email, String password) async {
+String? userUID = "";
+Future<UserCredential?> registerUser(String email, String password) async {
+  UserCredential? user;
   try {
-    await _auth.createUserWithEmailAndPassword(
+    user = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
   } on FirebaseAuthException catch (e) {
     if (e.code == "email-already-in-use") {
@@ -25,8 +27,11 @@ Future<void> registerUser(String email, String password) async {
     }
 
     errMesssage = e.code;
-    
+    print("error: $errMesssage");
   }
+  User? details = user?.user;
+  userUID = details?.uid;
+  return user;
 }
 
 signIn(String email, String password) async {

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:owhsapp/SignUpTypes/SignUpComplete.dart';
+import '../Authentication/PasswordStrength.dart';
 import '../DetailCollection/learnerDetailsCollection.dart';
 import '../LoginPage.dart';
 
@@ -23,12 +24,20 @@ class _SignUpPageBState extends State<SignUpPageB> {
   late String _type;
   late String _names;
   late String _surname;
+  PasswordStrength passwordStrength = PasswordStrength.Weak;
+
   @override
   void initState() {
     super.initState();
     _type = widget.type;
     _names = widget.names;
     _surname = widget.surname;
+  }
+
+  void checkPassword(String value) {
+    setState(() {
+      passwordStrength = checkPasswordStrength(value);
+    });
   }
 
   void login(BuildContext context, String typeName) {
@@ -48,6 +57,8 @@ class _SignUpPageBState extends State<SignUpPageB> {
     });
   }
 
+  bool _obscureText = true;
+  bool _obscureTextR = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,24 +112,65 @@ class _SignUpPageBState extends State<SignUpPageB> {
                 const SizedBox(height: 16.0),
                 TextField(
                   controller: passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
+                  onChanged: checkPassword,
+                  obscureText: _obscureText,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                      icon: _obscureText
+                          ? const Icon(
+                              Icons.visibility_outlined,
+                            )
+                          : const Icon(
+                              Icons.visibility_off_outlined,
+                            ),
+                    ),
                     labelText: 'Password',
                   ),
                 ),
                 const SizedBox(height: 16.0),
+                Text(
+                  'Password Strength: ${passwordStrength.toString().split('.').last}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: getColorForPasswordStrength(passwordStrength),
+                  ),
+                ),
                 TextField(
                   controller: repeatpasswordController,
                   onChanged: checkMatch,
-                  obscureText: true,
+                  obscureText: _obscureTextR,
                   decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _obscureTextR = !_obscureTextR;
+                          });
+                        },
+                        icon: _obscureTextR
+                            ? const Icon(Icons.visibility_outlined)
+                            : const Icon(Icons.visibility_off_outlined),
+                      ),
                       labelText: 'Repeat Password',
                       errorText:
                           isMatchingPassword ? null : "passwords should match"),
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    if (passwordStrength != PasswordStrength.Strong) {
+                      await errorMessage(
+                          context, "Please set a stronger paasword");
+                      return;
+                    }
+                    if (!isMatchingPassword) {
+                      await errorMessage(context, "Passwords should match");
+                      return;
+                    }
                     if (isValidB(context)) {
                       Navigator.push(
                           context,

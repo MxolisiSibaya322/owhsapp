@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:owhsapp/Authentication/ValidateSignUp.dart';
+import 'package:random_string/random_string.dart';
 
 import '../MailSender.dart';
 
@@ -14,7 +15,7 @@ final TextEditingController teacherEmail = TextEditingController();
 
 Map<String, dynamic> teachers = {};
 Map<String, dynamic> teacherDetails = {};
-String codeGenerated = "OWHSAPP";
+String codeGenerated = randomAlphaNumeric(7);
 
 String tNames = "";
 String tSurname = "";
@@ -53,7 +54,15 @@ Future<bool> isValidTeacher(BuildContext context) async {
   teachers = await getTeachers();
   for (var teacher in teachers.values) {
     if (teacher["ID-NUMBER"].toString().toUpperCase() == teacherID) {
+      for (var entry in teachers.entries) {
+        if (entry.value["ID-NUMBER"] == teacher["ID-NUMBER"]) {
+          teacherDetails["DocName"] = entry.key;
+        }
+      }
       teacherDetails = teacher;
+      teacherDetails["PASSWORD"] = teacherPassword;
+      teacherDetails["EMAIL"] = teacherEmail;
+      break;
     }
   }
   if (teacherDetails.isEmpty) {
@@ -81,12 +90,6 @@ Future<bool> isValidTeacher(BuildContext context) async {
   }
 }
 
-toJson() {
-  return {
-    "name": tNames,
-    "surname": tSurname,
-    "email": tEmail,
-    "id number": teacherID,
-    "password": tPassword,
-  };
+Map<String, dynamic> toJson() {
+  return teacherDetails;
 }

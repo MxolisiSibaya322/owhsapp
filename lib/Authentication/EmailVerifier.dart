@@ -1,17 +1,37 @@
-// ignore_for_file: file_names, must_be_immutable
+// ignore_for_file: file_names, must_be_immutable, use_build_context_synchronously
 
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:owhsapp/Authentication/Authentication.dart';
-import 'package:owhsapp/DetailCollection/learnerDetailsCollection.dart';
-// import 'package:owhsapp/DetailCollection/AdminDetailsCollection.dart';
+import 'package:owhsapp/Authentication/ValidateSignUp.dart';
 
 import '../HoverTextButton.dart';
 import '../SignUpTypes/SignUpComplete.dart';
 
+_errorMessage(BuildContext context, String err) {
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text(
+            err,
+            style: const TextStyle(color: Colors.red),
+          ),
+          actions: [
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Try again"))
+          ],
+        );
+      });
+}
+
 class EmailVerifier extends StatefulWidget {
   String code;
   String type;
-  Map<String, String> userDetails = {};
+  Map<String, dynamic> userDetails;
   EmailVerifier(
       {super.key,
       required this.code,
@@ -25,8 +45,8 @@ class EmailVerifier extends StatefulWidget {
 class _EmailVerifierState extends State<EmailVerifier> {
   late String _code;
   late String _type;
-  late Map<String, String> _userDetails;
-  String actualCode = "";
+  late Map<String, dynamic> _userDetails;
+  String? actualCode = "";
   TextEditingController codeGetter = TextEditingController();
   @override
   void initState() {
@@ -36,13 +56,13 @@ class _EmailVerifierState extends State<EmailVerifier> {
     _userDetails = widget.userDetails;
   }
 
-  bool isCodeValid(String enteredCode, String actualCode) {
-    return enteredCode == actualCode;
+  bool isCodeValid(String? enteredCode, String? actualCode) {
+    return enteredCode?.toUpperCase() == actualCode?.toUpperCase();
   }
 
   @override
   Widget build(BuildContext context) {
-    String? emailUser = _userDetails['email'];
+    String? emailUser = _userDetails['EMAIL'];
     return Scaffold(
       appBar: AppBar(
         title: const Text(""),
@@ -112,38 +132,46 @@ class _EmailVerifierState extends State<EmailVerifier> {
                 ),
                 Center(
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       actualCode = codeGetter.text.trim().toLowerCase();
                       if (isCodeValid(_code, actualCode)) {
-                        registerUser(
-                            userDetails["email"], userDetails["password"]);
+                        await registerUser(_userDetails["EMAIL"] ?? "",
+                            _userDetails["PASSWORD"] ?? "");
+                        if (errMesssage != "") {
+                          _errorMessage(context, errMesssage);
+                          return;
+                        }
+                        _userDetails["UID"] = userUID;
+                        print('$_userDetails');
+                        await updateUser(_userDetails, _type);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SignUpComplete(
-                                      names: _userDetails["name"],
-                                      surname: _userDetails["surname"],
+                                      names: _userDetails["NAME"],
+                                      surname: _userDetails["SURNAME"],
                                       type: _type,
                                     )));
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                content: const Text(
+                                  "The verification code does not match the one sent to your email",
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                                actions: [
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text("Try again"))
+                                ],
+                              );
+                            });
+                        codeGetter.clear();
                       }
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              content: const Text(
-                                "The verification code does not match the one sent to your email",
-                                style: TextStyle(color: Colors.red),
-                              ),
-                              actions: [
-                                ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text("Try again"))
-                              ],
-                            );
-                          });
-                      codeGetter.clear();
                     },
                     child: const Text('Verify'),
                   ),

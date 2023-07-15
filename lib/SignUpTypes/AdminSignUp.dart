@@ -35,6 +35,8 @@ Widget loadingPage() {
 class _AdminSignUpPageState extends State<AdminSignUpPage> {
   late String _type;
   bool isMatchingPassword = true;
+  bool _obscureText = true;
+  bool _obscureTextR = true;
   PasswordStrength passwordStrength = PasswordStrength.Weak;
   checkMatch(String value) {
     setState(() {
@@ -94,6 +96,24 @@ class _AdminSignUpPageState extends State<AdminSignUpPage> {
                             letterSpacing: 1.4,
                             fontStyle: FontStyle.italic),
                       ),
+                      DropdownButtonFormField<String>(
+                        value: position,
+                        items: dropdownOptions.map((String option) {
+                          return DropdownMenuItem<String>(
+                            value: option,
+                            child: Text(option),
+                          );
+                        }).toList(),
+                        onChanged: (String? value) {
+                          setState(() {
+                            position = value;
+                          });
+                        },
+                        decoration: const InputDecoration(
+                          labelText: 'Select an option',
+                          // Add additional styling or decoration as needed
+                        ),
+                      ),
                       TextField(
                         controller: names,
                         decoration: const InputDecoration(
@@ -121,9 +141,23 @@ class _AdminSignUpPageState extends State<AdminSignUpPage> {
                       ),
                       TextField(
                         controller: password,
-                        obscureText: true,
+                        obscureText: _obscureText,
                         onChanged: checkPassword,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _obscureText = !_obscureText;
+                              });
+                            },
+                            icon: _obscureText
+                                ? const Icon(
+                                    Icons.visibility_outlined,
+                                  )
+                                : const Icon(
+                                    Icons.visibility_off_outlined,
+                                  ),
+                          ),
                           labelText: 'Password',
                         ),
                       ),
@@ -136,9 +170,19 @@ class _AdminSignUpPageState extends State<AdminSignUpPage> {
                       ),
                       TextField(
                         controller: repeatpassword,
-                        obscureText: true,
+                        obscureText: _obscureTextR,
                         onChanged: checkMatch,
                         decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _obscureTextR = !_obscureTextR;
+                              });
+                            },
+                            icon: _obscureTextR
+                                ? const Icon(Icons.visibility_outlined)
+                                : const Icon(Icons.visibility_off_outlined),
+                          ),
                           labelText: 'Repeat password',
                           errorText: isMatchingPassword
                               ? null

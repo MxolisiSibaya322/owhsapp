@@ -106,11 +106,22 @@ class _SignUpPageState extends State<SignUpPage> {
                         : 'Surname cannot have digits..unless you are Elon Musks child?',
                   ),
                 ),
-                TextField(
-                  controller: gradeController,
-                  textCapitalization: TextCapitalization.characters,
+                DropdownButtonFormField<String>(
+                  value: grade,
+                  items: dropdownOptions.map((String option) {
+                    return DropdownMenuItem<String>(
+                      value: option,
+                      child: Text(option),
+                    );
+                  }).toList(),
+                  onChanged: (String? value) {
+                    setState(() {
+                      grade = value;
+                    });
+                  },
                   decoration: const InputDecoration(
-                    labelText: 'Grade',
+                    labelText: 'Select your class',
+                    // Add additional styling or decoration as needed
                   ),
                 ),
                 TextField(

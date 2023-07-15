@@ -6,6 +6,37 @@ Map<String, dynamic> students = {};
 Map<String, dynamic> admins = {};
 Map<String, dynamic> teachers = {};
 
+Future<void> updateStudent(
+    Map<String, dynamic> updated, String classname, String docName) async {
+  await _db
+      .collection("learners")
+      .doc("Grade 12")
+      .collection(classname.toUpperCase())
+      .doc(docName.toUpperCase())
+      .update(updated);
+}
+
+Future<void> updateAdmin(Map<String, dynamic> updated, String docName) async {
+  await _db.collection("admins").doc(docName).update(updated);
+}
+
+Future<void> updateTeacher(Map<String, dynamic> updated, String docName) async {
+  await _db.collection("teachers").doc(docName).update(updated);
+}
+
+updateUser(Map<String, dynamic> updated, String? type) {
+  if (type == "learner") {
+    updateStudent(updated, updated["GRADE"]!,
+        updated["NAME"]! + " " + updated["SURNAME"]!);
+  }
+  if (type == "admin") {
+    updateAdmin(updated, updated["DocName"]!);
+  }
+  if (type == "teacher") {
+    updateTeacher(updated, updated["DocName"]);
+  }
+}
+
 Future<Map<String, dynamic>> getStudents(String classname) async {
   await _db
       .collection("learners")
@@ -54,7 +85,6 @@ Future<Map<String, dynamic>> getTeachers() async {
       for (var docSnapshot in querySnapshot.docs) {
         teachers[docSnapshot.id] = docSnapshot.data();
       }
-
     },
     onError: (e) => admins,
   );

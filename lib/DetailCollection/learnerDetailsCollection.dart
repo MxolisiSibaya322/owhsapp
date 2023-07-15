@@ -1,12 +1,16 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:owhsapp/Authentication/ValidateSignUp.dart';
+import 'package:random_string/random_string.dart';
+
+import '../MailSender.dart';
 // import 'package:owhsapp/SignUpTypes/SignUpPage.dart';
 
 final TextEditingController namess = TextEditingController();
 final TextEditingController surnames = TextEditingController();
 final TextEditingController idNumberController = TextEditingController();
 final TextEditingController emailController = TextEditingController();
-final TextEditingController gradeController = TextEditingController();
 final TextEditingController gnamesController = TextEditingController();
 final TextEditingController gsurnameController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
@@ -14,10 +18,12 @@ final TextEditingController repeatpasswordController = TextEditingController();
 
 Map<String, dynamic> studentDatabase = {};
 Map<String, dynamic> userDetails = {};
-String codeGenerated = "OWHSAPP";
+Map<String, dynamic> guardianDetails = {};
+List<String> dropdownOptions = ['GRADE 12A', 'GRADE 12B'];
+String? grade;
+String codeGenerated = randomAlphaNumeric(7);
 String names = "";
 String surname = "";
-String grade = "";
 String email = "";
 String idNumber = "";
 String gnames = "";
@@ -45,16 +51,18 @@ errorMessage(BuildContext context, String err) {
 }
 
 Future<bool> isValidA(BuildContext context) async {
-  grade = gradeController.text.trim().toUpperCase();
   names = namess.text.trim().toUpperCase();
   surname = surnames.text.trim().toUpperCase();
   email = emailController.text.trim().toLowerCase();
   idNumber = idNumberController.text.trim();
-  studentDatabase = await getStudents(grade);
+  studentDatabase = await getStudents(grade!);
 
   for (var student in studentDatabase.values) {
     if (student["ID-NUMBER"].toString() == idNumber) {
       userDetails = student;
+      userDetails["DocName"] = student["NAME"] + " " + student["SURNAME"];
+      userDetails["PASSWORD"] = password;
+      userDetails["EMAIL"] = email;
       break;
     }
   }
@@ -84,7 +92,7 @@ bool isValidB(BuildContext context) {
   password = passwordController.text.trim().toUpperCase();
   repeatPassword = repeatpasswordController.text.trim().toUpperCase();
 
-  Map<String, dynamic> guardianDetails = userDetails["GUARDIAN"];
+  guardianDetails = userDetails["GUARDIAN"];
 
   if (guardianDetails['NAME'] != gnames ||
       guardianDetails["SURNAME"] != gsurname) {
@@ -92,18 +100,15 @@ bool isValidB(BuildContext context) {
         context, "$gnames $gsurname is not registered as your guardian.");
     return false;
   }
-  return true;
+  sendVerificationCode(email, codeGenerated);
+  if (errMessageMailSender == "") {
+    return true;
+  } else {
+    errorMessage(context, errMessageMailSender);
+    return false;
+  }
 }
 
-toJson() {
-  return {
-    "name": names,
-    "surname": surname,
-    "grade": grade,
-    "email": email,
-    "id number": idNumber,
-    "password": password,
-    "gnames": gnames,
-    "gsurname": gsurname
-  };
+Map<String, dynamic> toJson() {
+  return userDetails;
 }
