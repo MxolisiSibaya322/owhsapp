@@ -50,9 +50,9 @@ Future<bool> isValidAdmin(BuildContext context) async {
   admins = await getAdmins("admins");
   name = names.text.trim().toUpperCase();
   surnames = surname.text.trim().toUpperCase();
-  passwords = password.text.trim().toUpperCase();
-  repeatPasswords = password.text.trim().toUpperCase();
-  emails = email.text.trim().toUpperCase();
+  passwords = password.text;
+  repeatPasswords = password.text;
+  emails = email.text.trim();
   idNum = idNumber.text.trim().toUpperCase();
 
   for (var admin in admins.values) {

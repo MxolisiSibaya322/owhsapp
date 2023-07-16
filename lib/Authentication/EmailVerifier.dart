@@ -126,6 +126,7 @@ class _EmailVerifierState extends State<EmailVerifier> {
                     width: 100,
                     height: 50,
                     child: TextField(
+                      textAlign: TextAlign.center,
                       controller: codeGetter,
                     ),
                   ),
@@ -142,7 +143,8 @@ class _EmailVerifierState extends State<EmailVerifier> {
                           return;
                         }
                         _userDetails["UID"] = userUID;
-                        print('$_userDetails');
+                        _userDetails["TYPE"] = _type;
+
                         await updateUser(_userDetails, _type);
                         Navigator.push(
                             context,

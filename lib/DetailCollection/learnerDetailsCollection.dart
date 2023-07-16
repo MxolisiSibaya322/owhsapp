@@ -69,18 +69,24 @@ Future<bool> isValidA(BuildContext context) async {
   if (userDetails.isEmpty) {
     errorMessage(context,
         "ID Number $idNumber does not match any of the registered students in $grade");
+    userDetails = {};
+    studentDatabase = {};
     return false;
   }
 
   if (userDetails["NAME"].trim() != names) {
     errorMessage(context,
         "the name(s) :$names do not match that of the learner with ID number $idNumber");
+    userDetails = {};
+    studentDatabase = {};
     return false;
   }
   if (userDetails["SURNAME"].trim() != surname) {
     // wrong SURNAME
     errorMessage(context,
-        "the surname :$surname do not match that of the learner with ID number $idNumber");
+        "the surname :$surname does not match that of the learner with ID number $idNumber");
+    userDetails = {};
+    studentDatabase = {};
     return false;
   }
   return true;
@@ -89,7 +95,7 @@ Future<bool> isValidA(BuildContext context) async {
 bool isValidB(BuildContext context) {
   gnames = gnamesController.text.trim().toUpperCase();
   gsurname = gsurnameController.text.trim().toUpperCase();
-  password = passwordController.text.trim().toUpperCase();
+  password = passwordController.text;
   repeatPassword = repeatpasswordController.text.trim().toUpperCase();
 
   guardianDetails = userDetails["GUARDIAN"];
@@ -100,6 +106,10 @@ bool isValidB(BuildContext context) {
         context, "$gnames $gsurname is not registered as your guardian.");
     return false;
   }
+  userDetails["EMAIL"] = email;
+  userDetails["PASSWORD"] = password;
+  userDetails["GRADE"] = grade;
+
   sendVerificationCode(email, codeGenerated);
   if (errMessageMailSender == "") {
     return true;

@@ -47,21 +47,23 @@ errorMessage(BuildContext context, String err) {
 Future<bool> isValidTeacher(BuildContext context) async {
   tNames = teacherNames.text.trim().toUpperCase();
   tSurname = teacherSurname.text.trim().toUpperCase();
-  tPassword = teacherPassword.text.trim().toUpperCase();
-  tRepeatPass = teacherRepeatpassword.text.trim().toUpperCase();
-  tEmail = teacherEmail.text.trim().toUpperCase();
+  tPassword = teacherPassword.text;
+  tRepeatPass = teacherRepeatpassword.text;
+  tEmail = teacherEmail.text.trim();
   teacherID = teacherIdNumber.text.trim().toUpperCase();
   teachers = await getTeachers();
   for (var teacher in teachers.values) {
+    teacherDetails = teacher;
+    teacherDetails["PASSWORD"] = tPassword;
+    teacherDetails["EMAIL"] = tEmail;
     if (teacher["ID-NUMBER"].toString().toUpperCase() == teacherID) {
       for (var entry in teachers.entries) {
-        if (entry.value["ID-NUMBER"] == teacher["ID-NUMBER"]) {
+        if (entry.value["ID-NUMBER"] == teacherID) {
           teacherDetails["DocName"] = entry.key;
+          break;
         }
       }
-      teacherDetails = teacher;
-      teacherDetails["PASSWORD"] = teacherPassword;
-      teacherDetails["EMAIL"] = teacherEmail;
+
       break;
     }
   }

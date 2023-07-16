@@ -10,6 +10,22 @@ bool wrongPassword = false;
 bool userDisabled = false;
 String errMesssage = "";
 String? userUID = "";
+String signedInUID = "";
+
+void setUserType(User user, String userType) async {
+  // UserUpdateInfo userUpdateInfo = UserUpdateInfo();
+  // userUpdateInfo.displayName = user.displayName;
+  // userUpdateInfo.photoUrl = user.photoURL;
+
+  // Set custom user type field
+  // userUpdateInfo.updateCustomData(<String, dynamic>{
+  //   'userType': userType,
+  // });
+
+  // await user.;
+  // print('User type set successfully: $userType');
+}
+
 Future<UserCredential?> registerUser(String email, String password) async {
   UserCredential? user;
   try {
@@ -27,10 +43,13 @@ Future<UserCredential?> registerUser(String email, String password) async {
     }
 
     errMesssage = e.code;
-    print("error: $errMesssage");
+    // print("error: $errMesssage");
   }
+
   User? details = user?.user;
+
   userUID = details?.uid;
+
   return user;
 }
 
@@ -51,4 +70,8 @@ signIn(String email, String password) async {
       wrongPassword = true;
     }
   }
+}
+
+signOut() {
+  _auth.signOut();
 }

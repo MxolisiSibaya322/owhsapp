@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../Authentication/EmailVerifier.dart';
+import '../Authentication/PasswordStrength.dart';
 import '../DetailCollection/TeacherDetailsCollection.dart';
 
 class TeacherSignUpPage extends StatefulWidget {
@@ -16,19 +17,15 @@ class TeacherSignUpPage extends StatefulWidget {
 class _TeacherSignUpPageState extends State<TeacherSignUpPage> {
   late String _type;
   bool isMatchingPassword = true;
-  bool missingDigit = false;
-  bool missingUpper = false;
-  bool missingLower = false;
-  bool missingSpeacial = false;
-
-  errStrength() {
-    if (missingDigit) {}
-    if (missingDigit) {}
-    if (missingDigit) {}
-    if (missingDigit) {}
+  bool _obscureText = true;
+  bool _obscureTextR = true;
+  PasswordStrength passwordStrength = PasswordStrength.Weak;
+  checkStrength(String value) {
+    setState(() {
+      passwordStrength = checkPasswordStrength(value);
+    });
   }
 
-  checkStrength(String value) {}
   checkMatch(String value) {
     setState(() {
       isMatchingPassword = value == teacherPassword.text;
@@ -106,15 +103,48 @@ class _TeacherSignUpPageState extends State<TeacherSignUpPage> {
                 ),
                 TextField(
                   controller: teacherPassword,
+                  obscureText: _obscureText,
                   onChanged: checkStrength,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                      icon: _obscureText
+                          ? const Icon(
+                              Icons.visibility_outlined,
+                            )
+                          : const Icon(
+                              Icons.visibility_off_outlined,
+                            ),
+                    ),
                     labelText: 'Password',
+                  ),
+                ),
+                Text(
+                  'Password Strength: ${passwordStrength.toString().split('.').last}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: getColorForPasswordStrength(passwordStrength),
                   ),
                 ),
                 TextField(
                   controller: teacherRepeatpassword,
                   onChanged: checkMatch,
+                  obscureText: _obscureTextR,
                   decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _obscureTextR = !_obscureTextR;
+                        });
+                      },
+                      icon: _obscureTextR
+                          ? const Icon(Icons.visibility_outlined)
+                          : const Icon(Icons.visibility_off_outlined),
+                    ),
                     labelText: 'Repeat password',
                     errorText:
                         isMatchingPassword ? null : "passwords should match",
@@ -124,6 +154,7 @@ class _TeacherSignUpPageState extends State<TeacherSignUpPage> {
                 ElevatedButton(
                   onPressed: () async {
                     if (await isValidTeacher(context)) {
+                      
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -133,7 +164,6 @@ class _TeacherSignUpPageState extends State<TeacherSignUpPage> {
                                     type: _type,
                                   )));
                     }
-                    
                   },
                   child: const Text('Sign Up'),
                 ),

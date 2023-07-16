@@ -192,9 +192,6 @@ class _AdminSignUpPageState extends State<AdminSignUpPage> {
                       const SizedBox(height: 16.0),
                       ElevatedButton(
                         onPressed: () async {
-                          // setState(() {
-                          //   isLoading = true;
-                          // });
                           if (passwordStrength != PasswordStrength.Strong) {
                             await errorMessage(
                                 context, "Please set a stronger paasword");

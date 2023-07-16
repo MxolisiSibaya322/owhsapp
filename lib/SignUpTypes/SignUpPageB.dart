@@ -1,7 +1,8 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:owhsapp/SignUpTypes/SignUpComplete.dart';
+import 'package:owhsapp/Authentication/EmailVerifier.dart';
+
 import '../Authentication/PasswordStrength.dart';
 import '../DetailCollection/learnerDetailsCollection.dart';
 import '../LoginPage.dart';
@@ -22,16 +23,13 @@ class SignUpPageB extends StatefulWidget {
 
 class _SignUpPageBState extends State<SignUpPageB> {
   late String _type;
-  late String _names;
-  late String _surname;
+
   PasswordStrength passwordStrength = PasswordStrength.Weak;
 
   @override
   void initState() {
     super.initState();
     _type = widget.type;
-    _names = widget.names;
-    _surname = widget.surname;
   }
 
   void checkPassword(String value) {
@@ -175,9 +173,9 @@ class _SignUpPageBState extends State<SignUpPageB> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SignUpComplete(
-                                    names: _names,
-                                    surname: _surname,
+                              builder: (context) => EmailVerifier(
+                                    code: codeGenerated,
+                                    userDetails: toJson(),
                                     type: _type,
                                   )));
                     }

@@ -86,7 +86,7 @@ Future<Map<String, dynamic>> getTeachers() async {
         teachers[docSnapshot.id] = docSnapshot.data();
       }
     },
-    onError: (e) => admins,
+    onError: (e) => teachers,
   );
 
   return teachers;
