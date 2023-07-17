@@ -4,14 +4,14 @@ import 'Authentication/ValidateLogin.dart';
 class LoginPage extends StatefulWidget {
   final String type;
 
-  LoginPage({super.key, required this.type});
+  const LoginPage({super.key, required this.type});
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
   late String type;
-
+  bool _obscureText = true;
   @override
   void initState() {
     super.initState();
@@ -56,22 +56,31 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 16.0),
                 TextField(
                   controller: loginPassword,
-                  obscureText: true,
-                  decoration: const InputDecoration(
+                  obscureText: _obscureText,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                      icon: _obscureText
+                          ? const Icon(
+                              Icons.visibility_outlined,
+                            )
+                          : const Icon(
+                              Icons.visibility_off_outlined,
+                            ),
+                    ),
                     labelText: 'Password',
                   ),
                 ),
                 const SizedBox(height: 16.0),
                 ElevatedButton(
-                  onPressed: () {
-                    String username = loginUsername.text.trim();
-                    String password = loginPassword.text;
-                    // Perform login logic here
-                    bool isCorrectDetails =
-                        validateLogin(username, password, type);
-                    // _userName.clear();
-                    loginPassword.clear();
-                    isSuccessfulLogin(context, type, isCorrectDetails);
+                  onPressed: () async {
+                    
+
+                    await validateLogin(type, context);
                   },
                   child: const Text('Login'),
                 ),

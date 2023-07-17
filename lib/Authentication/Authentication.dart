@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'ValidateLogin.dart';
+
 final _auth = FirebaseAuth.instance;
 bool isAlreadyBeingUsed = false;
 bool invalidEmailCreate = false;
@@ -9,6 +11,7 @@ bool userNotFound = false;
 bool wrongPassword = false;
 bool userDisabled = false;
 String errMesssage = "";
+String errLoginMessage = "";
 String? userUID = "";
 String signedInUID = "";
 
@@ -53,9 +56,11 @@ Future<UserCredential?> registerUser(String email, String password) async {
   return user;
 }
 
-signIn(String email, String password) async {
+Future<UserCredential?> signIn(String email, String password) async {
+  UserCredential? user;
   try {
-    await _auth.signInWithEmailAndPassword(email: email, password: password);
+    user = await _auth.signInWithEmailAndPassword(
+        email: email, password: password);
   } on FirebaseAuthException catch (e) {
     if (e.code == "user-disabled") {
       userDisabled = true;
@@ -69,9 +74,12 @@ signIn(String email, String password) async {
     if (e.code == "wrong-password") {
       wrongPassword = true;
     }
+    errLoginMessage = e.code;
   }
+  return user;
 }
 
 signOut() {
+  loggedInUserDetails = {};
   _auth.signOut();
 }

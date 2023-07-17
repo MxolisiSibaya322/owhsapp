@@ -146,6 +146,7 @@ class _EmailVerifierState extends State<EmailVerifier> {
                         _userDetails["TYPE"] = _type;
 
                         await updateUser(_userDetails, _type);
+                        signOut();
                         Navigator.push(
                             context,
                             MaterialPageRoute(

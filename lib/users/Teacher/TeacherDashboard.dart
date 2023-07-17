@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../Authentication/Authentication.dart';
+
 class TeacherDashboard extends StatelessWidget {
   const TeacherDashboard({super.key});
 
@@ -16,6 +18,7 @@ class TeacherDashboard extends StatelessWidget {
               TextButton(
                 child: const Text('Yes'),
                 onPressed: () {
+                  signOut();
                   Navigator.of(context).pop(true);
                   Navigator.of(context).pop(true);
                 },

@@ -66,6 +66,10 @@ Future<bool> isValidA(BuildContext context) async {
       break;
     }
   }
+  if (userDetails["EMAIL"] != null) {
+    errorMessage(context, "${userDetails["NAME"]} is already registered");
+    return false;
+  }
   if (userDetails.isEmpty) {
     errorMessage(context,
         "ID Number $idNumber does not match any of the registered students in $grade");

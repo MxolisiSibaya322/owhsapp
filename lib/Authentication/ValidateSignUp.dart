@@ -58,7 +58,21 @@ Future<Map<String, dynamic>> getStudents(String classname) async {
 Future<Map<String, dynamic>> getAllStudents() async {
   await _db.collection("learners").doc("Grade 12").get().then(
     (classes) {
-      allStudents[classes.id] = classes.data();
+      for (var i in ["GRADE 12A", "GRADE 12B"]) {
+        CollectionReference studentsCollection =
+            classes.reference.collection(i);
+
+        studentsCollection.get().then(
+          (studentsSnapshot) {
+            for (var studentDoc in studentsSnapshot.docs) {
+              allStudents[studentDoc.id] = studentDoc.data();
+            }
+          },
+          onError: (e) {
+            // print("Error retrieving students: $e");
+          },
+        );
+      }
     },
     onError: (e) => allStudents,
   );
@@ -66,7 +80,7 @@ Future<Map<String, dynamic>> getAllStudents() async {
   return allStudents;
 }
 
-Future<Map<String, dynamic>> getAdmins(String position) async {
+Future<Map<String, dynamic>> getAdmins() async {
   await _db.collection("admins").get().then(
     (querySnapshot) {
       for (var docSnapshot in querySnapshot.docs) {
@@ -91,3 +105,4 @@ Future<Map<String, dynamic>> getTeachers() async {
 
   return teachers;
 }
+

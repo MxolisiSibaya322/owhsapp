@@ -47,7 +47,7 @@ errorMessage(BuildContext context, String err) {
 }
 
 Future<bool> isValidAdmin(BuildContext context) async {
-  admins = await getAdmins("admins");
+  admins = await getAdmins();
   name = names.text.trim().toUpperCase();
   surnames = surname.text.trim().toUpperCase();
   passwords = password.text;
@@ -60,6 +60,7 @@ Future<bool> isValidAdmin(BuildContext context) async {
       for (var entry in admins.entries) {
         if (entry.value["ID-NUMBER"] == admin["ID-NUMBER"]) {
           typeOfAdmin = entry.key;
+          break;
         }
       }
       adminDetails = admin;
@@ -68,6 +69,10 @@ Future<bool> isValidAdmin(BuildContext context) async {
       adminDetails["EMAIL"] = emails;
       break;
     }
+  }
+  if (adminDetails["EMAIL"] != null) {
+    errorMessage(context, "${adminDetails["NAME"]} is already registered");
+    return false;
   }
   if (adminDetails.isEmpty) {
     errorMessage(context,

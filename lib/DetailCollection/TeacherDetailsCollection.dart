@@ -67,6 +67,10 @@ Future<bool> isValidTeacher(BuildContext context) async {
       break;
     }
   }
+  if (teacherDetails["EMAIL"] != null) {
+    errorMessage(context, "${teacherDetails["NAME"]} is already registered");
+    return false;
+  }
   if (teacherDetails.isEmpty) {
     errorMessage(context,
         "ID Number: $teacherID does not match any of the registered teachers in Orlando West High");
