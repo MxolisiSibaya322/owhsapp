@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:owhsapp/Authentication/ValidateLogin.dart';
+import 'package:owhsapp/users/Learner/ViewMarks.dart';
 
 import '../../Authentication/Authentication.dart';
 
@@ -40,15 +42,59 @@ class LearnerDashboard extends StatelessWidget {
               child: Text('Dashboard'),
             ),
             actions: <Widget>[
-              ElevatedButton(
-                onPressed: () {
-                  // Add functionality to view profile
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: const CircleBorder(),
-                  padding: const EdgeInsets.all(20),
+              PopupMenuButton(
+                icon: const Icon(
+                  Icons.person_2_rounded,
                 ),
-                child: const Icon(Icons.person),
+                itemBuilder: (BuildContext context) {
+                  return [
+                    const PopupMenuItem(
+                      value: 'profile',
+                      child: Text('Profile'),
+                    ),
+                    const PopupMenuItem(
+                      value: 'settings',
+                      child: Text('Settings'),
+                    ),
+                    const PopupMenuItem(
+                      value: 'logout',
+                      child: Text('Logout'),
+                    ),
+                  ];
+                },
+                onSelected: (value) {
+                  if (value == 'profile') {
+                    // Handle profile option
+                    print('Profile option selected');
+                  } else if (value == 'settings') {
+                    // Handle settings option
+                    print('Settings option selected');
+                  } else if (value == 'logout') {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AlertDialog(
+                                  title: const Text('Log out of the App?'),
+                                  content: const Text(
+                                      'Are you sure you want to log out?'),
+                                  actions: [
+                                    TextButton(
+                                      child: const Text('Yes'),
+                                      onPressed: () {
+                                        signOut();
+                                        Navigator.of(context).pop(true);
+                                        Navigator.of(context).pop(true);
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: const Text('No'),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(false),
+                                    ),
+                                  ],
+                                )));
+                  }
+                },
               ),
             ],
           ),
@@ -68,10 +114,10 @@ class LearnerDashboard extends StatelessWidget {
                   width: 150,
                   height: 150,
                 ),
-                const Text(
-                  "WELCOME!",
+                Text(
+                  "WELCOME ${loggedInUserDetails["NAME"]}!",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 20.3,
                       fontWeight: FontWeight.bold,
                       color: Colors.yellow),
@@ -110,9 +156,14 @@ class DashboardButton extends StatelessWidget {
   final String label;
 
   const DashboardButton({super.key, required this.label});
-  void dashboardSelector(String label) {
+  void dashboardSelector(String label, BuildContext context) {
     if (label == "Announcements") {}
-    if (label == "View Marks") {}
+    if (label == "View Marks") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ViewMarks()),
+      );
+    }
     if (label == "TimeTable") {}
     if (label == "Learner Portal") {}
     if (label == "Resources") {}
@@ -125,7 +176,7 @@ class DashboardButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           // Add functionality for each button
-          dashboardSelector(label);
+          dashboardSelector(label, context);
         },
         child: Text(label),
       ),
