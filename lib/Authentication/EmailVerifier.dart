@@ -6,6 +6,7 @@ import 'package:owhsapp/Authentication/Authentication.dart';
 import 'package:owhsapp/Authentication/ValidateSignUp.dart';
 
 import '../HoverTextButton.dart';
+import '../LoadingScreen.dart';
 import '../SignUpTypes/SignUpComplete.dart';
 
 _errorMessage(BuildContext context, String err) {
@@ -57,7 +58,8 @@ class _EmailVerifierState extends State<EmailVerifier> {
   }
 
   bool isCodeValid(String? enteredCode, String? actualCode) {
-    return enteredCode?.toUpperCase() == actualCode?.toUpperCase();
+    return enteredCode?.trim().toUpperCase() ==
+        actualCode?.trim().toUpperCase();
   }
 
   @override
@@ -136,17 +138,28 @@ class _EmailVerifierState extends State<EmailVerifier> {
                     onPressed: () async {
                       actualCode = codeGetter.text.trim().toLowerCase();
                       if (isCodeValid(_code, actualCode)) {
+                        showDialog(
+                          context: context,
+                          builder: loading(context),
+                        );
                         await registerUser(_userDetails["EMAIL"] ?? "",
                             _userDetails["PASSWORD"] ?? "");
+
+                        Navigator.of(context).pop();
                         if (errMesssage != "") {
                           _errorMessage(context, errMesssage);
+                          errMesssage = "";
                           return;
                         }
                         _userDetails["UID"] = userUID;
                         _userDetails["TYPE"] = _type;
-
+                        showDialog(
+                          context: context,
+                          builder: (context) => loading(context),
+                        );
                         await updateUser(_userDetails, _type);
                         signOut();
+                        Navigator.of(context).pop();
                         Navigator.push(
                             context,
                             MaterialPageRoute(

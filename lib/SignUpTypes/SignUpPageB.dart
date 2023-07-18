@@ -5,6 +5,7 @@ import 'package:owhsapp/Authentication/EmailVerifier.dart';
 
 import '../Authentication/PasswordStrength.dart';
 import '../DetailCollection/learnerDetailsCollection.dart';
+import '../LoadingScreen.dart';
 import '../LoginPage.dart';
 
 class SignUpPageB extends StatefulWidget {
@@ -169,6 +170,11 @@ class _SignUpPageBState extends State<SignUpPageB> {
                       await errorMessage(context, "Passwords should match");
                       return;
                     }
+                    showDialog(
+                      context: context,
+                      builder:(context) => loading(context),
+                    );
+                    
                     if (isValidB(context)) {
                       Navigator.push(
                           context,

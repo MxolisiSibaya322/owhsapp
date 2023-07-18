@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../Authentication/EmailVerifier.dart';
 import '../Authentication/PasswordStrength.dart';
 import '../DetailCollection/TeacherDetailsCollection.dart';
+import '../LoadingScreen.dart';
 
 class TeacherSignUpPage extends StatefulWidget {
   String type;
@@ -153,8 +154,12 @@ class _TeacherSignUpPageState extends State<TeacherSignUpPage> {
                 const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () async {
+                    showDialog(
+                      context: context,
+                      builder: (context) => loading(context),
+                    );
+
                     if (await isValidTeacher(context)) {
-                      
                       Navigator.push(
                           context,
                           MaterialPageRoute(

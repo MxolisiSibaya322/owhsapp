@@ -50,8 +50,8 @@ Future<bool> isValidAdmin(BuildContext context) async {
   admins = await getAdmins();
   name = names.text.trim().toUpperCase();
   surnames = surname.text.trim().toUpperCase();
-  passwords = password.text;
-  repeatPasswords = password.text;
+  passwords = password.text.trim();
+  repeatPasswords = password.text.trim();
   emails = email.text.trim();
   idNum = idNumber.text.trim().toUpperCase();
 
@@ -70,6 +70,7 @@ Future<bool> isValidAdmin(BuildContext context) async {
       break;
     }
   }
+  Navigator.of(context).pop();
   if (adminDetails["EMAIL"] != null) {
     errorMessage(context, "${adminDetails["NAME"]} is already registered");
     return false;

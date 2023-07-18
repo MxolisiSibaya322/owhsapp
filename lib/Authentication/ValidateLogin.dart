@@ -45,7 +45,7 @@ _errorMessage(BuildContext context, String err) {
 
 Future<bool> validateLogin(String type, BuildContext context) async {
   username = loginUsername.text.trim();
-  password = loginPassword.text;
+  password = loginPassword.text.trim();
 
   if (type == "admin") {
     isCorrectDetails = await doAdmin(username, password, context, type);
@@ -54,19 +54,20 @@ Future<bool> validateLogin(String type, BuildContext context) async {
   } else {
     isCorrectDetails = await doteacher(username, password, context, type);
   }
-  print("$loggedInUserDetails");
-
+  
+  errLoginMessage = "";
   isSuccessfulLogin(context, type, isCorrectDetails);
+
   return true;
 }
 
 Future<bool> doAdmin(
     String username, String password, BuildContext context, String type) async {
   admins = await getAdmins();
-  print("$username $password");
+
   UserCredential? user = await signIn(username, password);
+  Navigator.of(context).pop();
   if (errLoginMessage != "") {
-    signOut();
     if (errLoginMessage == "unknown") {
       _errorMessage(context, "Your username or password is incorrect");
       return false;
@@ -74,9 +75,8 @@ Future<bool> doAdmin(
     _errorMessage(context, errLoginMessage);
     return false;
   }
-  print(admins);
+
   for (var entry in admins.entries) {
-    print("${entry.value}");
     if (entry.value["EMAIL"] == username) {
       loggedInUserDetails = entry.value;
       break;
@@ -87,7 +87,6 @@ Future<bool> doAdmin(
     return true;
   }
 
-  signOut();
   _errorMessage(context,
       "ERROR! Check if you are signing in as the correct type of user.");
 
@@ -98,8 +97,8 @@ Future<bool> doteacher(
     String username, String password, BuildContext context, String type) async {
   teachers = await getTeachers();
   UserCredential? user = await signIn(username, password);
+  Navigator.of(context).pop();
   if (errLoginMessage != "") {
-    signOut();
     if (errLoginMessage == "unknown") {
       _errorMessage(context, "Your username or password is incorrect");
       return false;
@@ -119,7 +118,6 @@ Future<bool> doteacher(
     return true;
   }
 
-  signOut();
   _errorMessage(context,
       "ERROR! Check if you are signing in as the correct type of user.");
   return false;
@@ -129,8 +127,8 @@ Future<bool> dolearner(
     String username, String password, BuildContext context, String type) async {
   allStudent = await getAllStudents();
   UserCredential? user = await signIn(username, password);
+  Navigator.of(context).pop();
   if (errLoginMessage != "") {
-    signOut();
     if (errLoginMessage == "unknown") {
       _errorMessage(context, "Your username or password is incorrect");
       return false;
@@ -148,7 +146,7 @@ Future<bool> dolearner(
   if (user?.user?.uid == loggedInUserDetails["UID"]) {
     return true;
   }
-  signOut();
+
   _errorMessage(context,
       "ERROR! Check if you are signing in as the correct type of user.");
   return false;
@@ -157,12 +155,11 @@ Future<bool> dolearner(
 void isSuccessfulLogin(
     BuildContext context, String type, bool isCorrectDetails) {
   if (isCorrectDetails) {
+    loginPassword.clear();
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => loginType(type)),
     );
-  } else {
-    signOut();
   }
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Authentication/ValidateLogin.dart';
+import 'LoadingScreen.dart';
 
 class LoginPage extends StatefulWidget {
   final String type;
@@ -78,7 +79,10 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () async {
-                    
+                    showDialog(
+                      context: context,
+                      builder: (context) => loading(context),
+                    );
 
                     await validateLogin(type, context);
                   },

@@ -66,6 +66,7 @@ Future<bool> isValidA(BuildContext context) async {
       break;
     }
   }
+  Navigator.of(context).pop();
   if (userDetails["EMAIL"] != null) {
     errorMessage(context, "${userDetails["NAME"]} is already registered");
     return false;
@@ -99,11 +100,11 @@ Future<bool> isValidA(BuildContext context) async {
 bool isValidB(BuildContext context) {
   gnames = gnamesController.text.trim().toUpperCase();
   gsurname = gsurnameController.text.trim().toUpperCase();
-  password = passwordController.text;
-  repeatPassword = repeatpasswordController.text.trim().toUpperCase();
+  password = passwordController.text.trim();
+  repeatPassword = repeatpasswordController.text.trim();
 
   guardianDetails = userDetails["GUARDIAN"];
-
+  Navigator.of(context).pop();
   if (guardianDetails['NAME'] != gnames ||
       guardianDetails["SURNAME"] != gsurname) {
     errorMessage(

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import '../DetailCollection/learnerDetailsCollection.dart';
+import '../LoadingScreen.dart';
 import '../LoginPage.dart';
 
 class SignUpComplete extends StatefulWidget {
@@ -32,6 +33,7 @@ class _SignUpCompleteState extends State<SignUpComplete> {
   }
 
   void login(BuildContext context, String typeName) {
+    Navigator.of(context).pop();
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -103,6 +105,11 @@ class _SignUpCompleteState extends State<SignUpComplete> {
               const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder:(context) => loading(context),
+                  );
+
                   login(context, _type);
                 },
                 child: const Text('login'),

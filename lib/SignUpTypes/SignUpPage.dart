@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../DetailCollection/learnerDetailsCollection.dart';
+import '../LoadingScreen.dart';
 import 'SignUpPageB.dart';
 
 // ignore: must_be_immutable
@@ -144,6 +145,11 @@ class _SignUpPageState extends State<SignUpPage> {
                 const SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () async {
+                    showDialog(
+                      context: context,
+                      builder: (context) =>loading(context),
+                    );
+                    
                     if (await isValidA(context)) {
                       // ignore: use_build_context_synchronously
                       Navigator.push(

@@ -47,8 +47,8 @@ errorMessage(BuildContext context, String err) {
 Future<bool> isValidTeacher(BuildContext context) async {
   tNames = teacherNames.text.trim().toUpperCase();
   tSurname = teacherSurname.text.trim().toUpperCase();
-  tPassword = teacherPassword.text;
-  tRepeatPass = teacherRepeatpassword.text;
+  tPassword = teacherPassword.text.trim();
+  tRepeatPass = teacherRepeatpassword.text.trim();
   tEmail = teacherEmail.text.trim();
   teacherID = teacherIdNumber.text.trim().toUpperCase();
   teachers = await getTeachers();
@@ -67,6 +67,7 @@ Future<bool> isValidTeacher(BuildContext context) async {
       break;
     }
   }
+  Navigator.of(context).pop();
   if (teacherDetails["EMAIL"] != null) {
     errorMessage(context, "${teacherDetails["NAME"]} is already registered");
     return false;
