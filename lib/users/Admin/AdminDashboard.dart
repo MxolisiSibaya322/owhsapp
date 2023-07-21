@@ -1,9 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:owhsapp/Authentication/Authentication.dart';
+import 'package:owhsapp/Authentication/ValidateLogin.dart';
 
-class AdminDashboard extends StatelessWidget {
+import 'ListAllStudents.dart';
+import 'ListAllTeachers.dart';
+
+class AdminDashboard extends StatefulWidget {
   const AdminDashboard({super.key});
 
+  @override
+  State<AdminDashboard> createState() => _AdminDashboardState();
+}
+
+listAllStudents(BuildContext context) {
+  Navigator.push(context,
+      MaterialPageRoute(builder: (context) => const ListAllStudents()));
+}
+
+class _AdminDashboardState extends State<AdminDashboard> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -119,28 +133,42 @@ class AdminDashboard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: Colors.yellow),
                   ),
-                  const Row(
+                  Text(
+                    "${loggedInUserDetails["DocName"].toString().toUpperCase()} : ${loggedInUserDetails["NAME"]} ${loggedInUserDetails["SURNAME"]}",
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontSize: 10.3,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.yellow),
+                  ),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: 50),
-                      DashboardButton(label: 'Announcements'),
-                      DashboardButton(label: 'Learners'),
+                      const SizedBox(height: 50),
+                      DashboardButton(
+                        label: 'Announcements',
+                        context: context,
+                      ),
+                      DashboardButton(
+                        label: 'Learners',
+                        context: context,
+                      ),
                     ],
                   ),
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: 50),
-                      DashboardButton(label: 'Teachers'),
-                      DashboardButton(label: 'Portal'),
+                      const SizedBox(height: 50),
+                      DashboardButton(
+                        label: 'Teachers',
+                        context: context,
+                      ),
+                      DashboardButton(
+                        label: 'Portal',
+                        context: context,
+                      ),
                     ],
                   ),
-                  // const Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     DashboardButton(label: 'Resources'),
-                  //   ],
-                  // ),
                   const SizedBox(height: 20),
                 ],
               ),
@@ -150,16 +178,20 @@ class AdminDashboard extends StatelessWidget {
 
 class DashboardButton extends StatelessWidget {
   final String label;
+  final BuildContext context;
   void dashboardSelector(String label) {
     if (label == "Announcements") {}
     if (label == "Learners") {
-      // isValidUser();
+      listAllStudents(context);
     }
-    if (label == "Teachers") {}
+    if (label == "Teachers") {
+      listAllTeachers(context);
+    }
     if (label == "Portal") {}
   }
 
-  const DashboardButton({super.key, required this.label});
+  // ignore: prefer_const_constructors_in_immutables
+  DashboardButton({super.key, required this.label, required this.context});
 
   @override
   Widget build(BuildContext context) {
@@ -174,4 +206,9 @@ class DashboardButton extends StatelessWidget {
       ),
     );
   }
+}
+
+void listAllTeachers(BuildContext context) {
+  Navigator.push(context,
+      MaterialPageRoute(builder: (context) => const ListAllTeachers()));
 }

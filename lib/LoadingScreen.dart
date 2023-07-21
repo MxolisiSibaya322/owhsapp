@@ -8,7 +8,7 @@ loading(context) {
       decoration: const BoxDecoration(
         shape: BoxShape.circle,
         image: DecorationImage(
-          image: AssetImage('assets/icons/badge_72.png'),
+          image: AssetImage('assets/images/badge.png'),
           fit: BoxFit.cover,
         ),
       ),

@@ -27,6 +27,8 @@ class _SignUpPageBState extends State<SignUpPageB> {
 
   PasswordStrength passwordStrength = PasswordStrength.Weak;
 
+  bool isValidID = false;
+
   @override
   void initState() {
     super.initState();
@@ -36,6 +38,12 @@ class _SignUpPageBState extends State<SignUpPageB> {
   void checkPassword(String value) {
     setState(() {
       passwordStrength = checkPasswordStrength(value);
+    });
+  }
+
+  validateID(String id) {
+    setState(() {
+      isValidID = int.tryParse(id.trim()) != null;
     });
   }
 
@@ -110,6 +118,18 @@ class _SignUpPageBState extends State<SignUpPageB> {
                 ),
                 const SizedBox(height: 16.0),
                 TextField(
+                  controller: phoneNumberController,
+                  onChanged: validateID,
+                  // controller: gnamesController,
+                  decoration: InputDecoration(
+                    labelText: 'Cell number',
+                    errorText: isValidID
+                        ? null
+                        : 'Cell number can only contain digits',
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                TextField(
                   controller: passwordController,
                   onChanged: checkPassword,
                   obscureText: _obscureText,
@@ -172,9 +192,9 @@ class _SignUpPageBState extends State<SignUpPageB> {
                     }
                     showDialog(
                       context: context,
-                      builder:(context) => loading(context),
+                      builder: (context) => loading(context),
                     );
-                    
+
                     if (isValidB(context)) {
                       Navigator.push(
                           context,

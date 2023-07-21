@@ -140,7 +140,7 @@ class _EmailVerifierState extends State<EmailVerifier> {
                       if (isCodeValid(_code, actualCode)) {
                         showDialog(
                           context: context,
-                          builder: loading(context),
+                          builder: (context) => loading(context),
                         );
                         await registerUser(_userDetails["EMAIL"] ?? "",
                             _userDetails["PASSWORD"] ?? "");

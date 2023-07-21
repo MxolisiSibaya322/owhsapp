@@ -1,12 +1,15 @@
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 
+
+
 String errMessageMailSender = "";
 Future<void> sendVerificationCode(String email, String verificationCode) async {
   String username = 'owhsapp@gmail.com';
   String password = 'qqdluvaqipyjmpfz';
 
   final smtpServer = gmail(username, password);
+
   final message = Message()
     ..from = Address(username, "ORLANDO WEST HIGH SCHOOL APP")
     ..recipients.add(email)

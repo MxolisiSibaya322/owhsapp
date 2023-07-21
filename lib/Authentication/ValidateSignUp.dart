@@ -6,6 +6,36 @@ Map<String, dynamic> students = {};
 Map<String, dynamic> admins = {};
 Map<String, dynamic> teachers = {};
 
+Map<String, dynamic> grade12a = {};
+Map<String, dynamic> grade12b = {};
+
+get12A() async {
+  grade12a = await getStudents("GRADE 12A");
+}
+
+get12B() async {
+  grade12b = await getStudents("GRADE 12B");
+}
+
+Future<void> addLearner(Map<String, dynamic> details) async {
+  details["TYPE"] = "learner";
+
+  DocumentReference docGen = await _db
+      .collection("learners")
+      .doc("Grade 12")
+      .collection(details["GRADE"])
+      .doc('${details["NAME"]} ${details["SURNAME"]}');
+  docGen.set(details);
+}
+
+Future<void> addTeacher(Map<String, dynamic> details) async {
+  details["TYPE"] = "teacher";
+}
+
+Future<void> addAdmin(Map<String, dynamic> details) async {
+  details["TYPE"] = "admin";
+}
+
 Future<void> updateStudent(
     Map<String, dynamic> updated, String classname, String docName) async {
   await _db
@@ -56,6 +86,7 @@ Future<Map<String, dynamic>> getStudents(String classname) async {
 }
 
 Future<Map<String, dynamic>> getAllStudents() async {
+  allStudents = {};
   await _db.collection("learners").doc("Grade 12").get().then(
     (classes) {
       for (var i in ["GRADE 12A", "GRADE 12B"]) {
@@ -105,4 +136,3 @@ Future<Map<String, dynamic>> getTeachers() async {
 
   return teachers;
 }
-

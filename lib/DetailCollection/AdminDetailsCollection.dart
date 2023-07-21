@@ -48,6 +48,7 @@ errorMessage(BuildContext context, String err) {
 
 Future<bool> isValidAdmin(BuildContext context) async {
   admins = await getAdmins();
+  adminDetails = {};
   name = names.text.trim().toUpperCase();
   surnames = surname.text.trim().toUpperCase();
   passwords = password.text.trim();
@@ -64,9 +65,7 @@ Future<bool> isValidAdmin(BuildContext context) async {
         }
       }
       adminDetails = admin;
-      adminDetails["DocName"] = typeOfAdmin;
-      adminDetails["PASSWORD"] = passwords;
-      adminDetails["EMAIL"] = emails;
+
       break;
     }
   }
@@ -75,6 +74,9 @@ Future<bool> isValidAdmin(BuildContext context) async {
     errorMessage(context, "${adminDetails["NAME"]} is already registered");
     return false;
   }
+  adminDetails["DocName"] = typeOfAdmin;
+  adminDetails["PASSWORD"] = passwords;
+  adminDetails["EMAIL"] = emails;
   if (adminDetails.isEmpty) {
     errorMessage(context,
         "ID Number: $idNum does not match any of the registered admins in Orlando West High");

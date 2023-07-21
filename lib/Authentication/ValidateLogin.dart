@@ -46,15 +46,15 @@ _errorMessage(BuildContext context, String err) {
 Future<bool> validateLogin(String type, BuildContext context) async {
   username = loginUsername.text.trim();
   password = loginPassword.text.trim();
-
-  if (type == "admin") {
+  print(type);
+  if (type.toLowerCase() == "admin") {
     isCorrectDetails = await doAdmin(username, password, context, type);
-  } else if (type == "learner") {
+  } else if (type.toLowerCase() == "learner") {
     isCorrectDetails = await dolearner(username, password, context, type);
   } else {
     isCorrectDetails = await doteacher(username, password, context, type);
   }
-  
+
   errLoginMessage = "";
   isSuccessfulLogin(context, type, isCorrectDetails);
 
@@ -69,9 +69,15 @@ Future<bool> doAdmin(
   Navigator.of(context).pop();
   if (errLoginMessage != "") {
     if (errLoginMessage == "unknown") {
-      _errorMessage(context, "Your username or password is incorrect");
+      _errorMessage(context, "Wrong email. Are you registered?");
       return false;
     }
+    if (errLoginMessage == "network-request-failed") {
+      _errorMessage(context,
+          "There seems to be an internet problem. Check your network connection and try again.");
+      return false;
+    }
+
     _errorMessage(context, errLoginMessage);
     return false;
   }
@@ -100,7 +106,12 @@ Future<bool> doteacher(
   Navigator.of(context).pop();
   if (errLoginMessage != "") {
     if (errLoginMessage == "unknown") {
-      _errorMessage(context, "Your username or password is incorrect");
+      _errorMessage(context, "Wrong email. Are you registered?");
+      return false;
+    }
+    if (errLoginMessage == "network-request-failed") {
+      _errorMessage(context,
+          "There seems to be an internet problem. Check your network connection and try again.");
       return false;
     }
     _errorMessage(context, errLoginMessage);
@@ -109,7 +120,7 @@ Future<bool> doteacher(
 
   for (var teacher in teachers.values) {
     if (teacher["EMAIL"] == username) {
-      loggedInUserDetails = teacher.value;
+      loggedInUserDetails = teacher;
       break;
     }
   }
@@ -130,7 +141,12 @@ Future<bool> dolearner(
   Navigator.of(context).pop();
   if (errLoginMessage != "") {
     if (errLoginMessage == "unknown") {
-      _errorMessage(context, "Your username or password is incorrect");
+      _errorMessage(context, "Wrong email. Are you registered?");
+      return false;
+    }
+    if (errLoginMessage == "network-request-failed") {
+      _errorMessage(context,
+          "There seems to be an internet problem. Check your network connection and try again.");
       return false;
     }
     _errorMessage(context, errLoginMessage);
@@ -142,6 +158,7 @@ Future<bool> dolearner(
       break;
     }
   }
+  print(loggedInUserDetails);
 
   if (user?.user?.uid == loggedInUserDetails["UID"]) {
     return true;
