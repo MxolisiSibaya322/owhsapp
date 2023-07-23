@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:owhsapp/users/Admin/AddTeacher.dart';
 
 import '../../Authentication/ValidateSignUp.dart';
 import '../../LoadingScreen.dart';
+import 'AdminDashboard.dart';
 
 class ListAllTeachers extends StatefulWidget {
   const ListAllTeachers({super.key});
@@ -71,9 +73,7 @@ class _ListAllTeachersState extends State<ListAllTeachers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(""),
-      ),
+      bottomNavigationBar: bottomButtons(context),
       body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
@@ -81,6 +81,9 @@ class _ListAllTeachersState extends State<ListAllTeachers> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const SizedBox(
+                  height: 20.0,
+                ),
                 Container(
                   width: 150,
                   height: 150,
@@ -120,10 +123,25 @@ class _ListAllTeachersState extends State<ListAllTeachers> {
                               _showTeachers = true;
                             });
                           },
-                          child: const Text("View Teachers")),
+                          child: const Row(
+                            children: [
+                              Icon(Icons.sort),
+                              Text("View Teachers"),
+                            ],
+                          )),
                       ElevatedButton(
-                          onPressed: () async {},
-                          child: const Text("Add Teacher")),
+                          onPressed: () async {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const AddTeacher()));
+                          },
+                          child: const Row(
+                            children: [
+                              Icon(Icons.person_add_alt_1_outlined),
+                              Text("Add Teacher"),
+                            ],
+                          )),
                     ],
                   ),
                 ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'TypefSignUp.dart';
+import 'SignUpTypes/TypefSignUp.dart';
 import 'TypeOfUser.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Orlando West High School',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+          splashFactory: NoSplash.splashFactory,
           primaryColor: Colors.black,
 
           // colorScheme: const ColorScheme.dark(primary : Colors.black),

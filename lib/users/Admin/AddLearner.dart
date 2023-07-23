@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../DetailCollection/learnerDetailsCollection.dart';
+import 'AdminDashboard.dart';
 
 class AddLearner extends StatefulWidget {
   const AddLearner({super.key});
@@ -105,9 +106,7 @@ class _AddLearnerState extends State<AddLearner> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Text('ADD NEW LEARNER')),
-      ),
+      bottomNavigationBar: bottomButtons(context),
       body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
@@ -212,7 +211,8 @@ class _AddLearnerState extends State<AddLearner> {
                   onChanged: (String? value) {
                     setState(() {
                       homeLang = value;
-                      reDrawDefaults();
+
+                      reDrawDefaults(context);
                       showSubject = true;
                     });
                   },
@@ -271,12 +271,13 @@ class _AddLearnerState extends State<AddLearner> {
                 const SizedBox(height: 16.0),
                 showSubject ? showSubjects() : const SizedBox(height: 16.0),
                 ElevatedButton(
+                  style: const ButtonStyle(alignment: Alignment.center),
                   onPressed: () async {
                     createLearner();
                     String text =
                         "You are about to add a learner with the following details:\n\nFull Name : $names $surname \nID Number : $idNumber " +
                             "\nGRADE :  $grade\nGuardian : $gnames $gsurname\nCELL NUMBER : $phoneNumber\n SUBJECTS : ${subjects.toString()}\n\n Are these details correct?";
-                    showDialog(
+                    await showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
@@ -287,7 +288,7 @@ class _AddLearnerState extends State<AddLearner> {
                             actions: [
                               ElevatedButton(
                                   onPressed: () async {
-                                    await confirmSubjects(context);
+                                    isAddAllowed = true;
 
                                     Navigator.of(context).pop();
                                   },
@@ -300,8 +301,24 @@ class _AddLearnerState extends State<AddLearner> {
                             ],
                           );
                         });
+
+                    if (isAddAllowed) {
+                      await confirmSubjects(context);
+                      isAddAllowed = false;
+                    }
                   },
-                  child: const Text('Confirm addition of learner'),
+                  child: const Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.done_outline_outlined),
+                        Text(
+                          'Confirm addition of learner',
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 16.0),
               ],

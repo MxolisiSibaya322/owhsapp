@@ -11,19 +11,19 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late String type;
+  late String _type;
   bool _obscureText = true;
   @override
   void initState() {
     super.initState();
-    type = widget.type;
+    _type = widget.type.toLowerCase();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(userType(type)),
+        title: Text(userType(_type)),
       ),
       body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -84,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                       builder: (context) => loading(context),
                     );
 
-                    await validateLogin(type, context);
+                    await validateLogin(_type, context);
                   },
                   child: const Text('Login'),
                 ),

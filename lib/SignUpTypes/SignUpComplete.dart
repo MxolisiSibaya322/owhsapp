@@ -104,7 +104,7 @@ class _SignUpCompleteState extends State<SignUpComplete> {
               const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
-                  login(context, _type);
+                  login(context, _type.toLowerCase());
                 },
                 child: const Text('login'),
               ),

@@ -8,13 +8,22 @@ Map<String, dynamic> teachers = {};
 
 Map<String, dynamic> grade12a = {};
 Map<String, dynamic> grade12b = {};
+Map<String, dynamic> grade12c = {};
 
-get12A() async {
-  grade12a = await getStudents("GRADE 12A");
-}
-
-get12B() async {
-  grade12b = await getStudents("GRADE 12B");
+bool userExists = false;
+Object? _givenData = {};
+getGrades() {
+  for (var entry in allStudents.entries) {
+    if (entry.value["GRADE"] == "GRADE 12A") {
+      grade12a[entry.key] = entry.value;
+    }
+    if (entry.value["GRADE"] == "GRADE 12B") {
+      grade12b[entry.key] = entry.value;
+    }
+    if (entry.value["GRADE"] == "GRADE 12C") {
+      grade12c[entry.key] = entry.value;
+    }
+  }
 }
 
 Future<void> addLearner(Map<String, dynamic> details) async {
@@ -25,7 +34,13 @@ Future<void> addLearner(Map<String, dynamic> details) async {
       .doc("Grade 12")
       .collection(details["GRADE"])
       .doc('${details["NAME"]} ${details["SURNAME"]}');
-  docGen.set(details);
+
+  await docGen.get().then((value) => _givenData = value.data());
+  if (_givenData == null) {
+    docGen.set(details);
+  } else {
+    userExists = true;
+  }
 }
 
 Future<void> addTeacher(Map<String, dynamic> details) async {
@@ -68,6 +83,8 @@ updateUser(Map<String, dynamic> updated, String? type) {
 }
 
 Future<Map<String, dynamic>> getStudents(String classname) async {
+  students = {};
+
   await _db
       .collection("learners")
       .doc("Grade 12")
@@ -89,7 +106,7 @@ Future<Map<String, dynamic>> getAllStudents() async {
   allStudents = {};
   await _db.collection("learners").doc("Grade 12").get().then(
     (classes) {
-      for (var i in ["GRADE 12A", "GRADE 12B"]) {
+      for (var i in ["GRADE 12A", "GRADE 12B", "GRADE 12C"]) {
         CollectionReference studentsCollection =
             classes.reference.collection(i);
 

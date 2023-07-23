@@ -25,7 +25,12 @@ TextEditingController subject4Controller = TextEditingController();
 TextEditingController subject5Controller = TextEditingController();
 TextEditingController subject6Controller = TextEditingController();
 TextEditingController subject7Controller = TextEditingController();
-reDrawDefaults() {
+
+reDrawDefaults(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) => loading(context),
+  );
   subject1Controller.clear();
   subject2Controller.clear();
   subject3Controller.clear();
@@ -41,13 +46,15 @@ reDrawDefaults() {
   subject5Controller = TextEditingController(text: subjects[4]);
   subject6Controller = TextEditingController(text: subjects[5]);
   subject7Controller = TextEditingController(text: subjects[6]);
+  Navigator.of(context).pop();
 }
 
+bool isAddAllowed = false;
 Map<String, dynamic> studentDatabase = {};
 Map<String, dynamic> userDetails = {};
 Map<String, dynamic> guardianDetails = {};
 List<String> subjects = [];
-List<String> dropdownOptions = ['GRADE 12A', 'GRADE 12B'];
+List<String> dropdownOptions = ['GRADE 12A', 'GRADE 12B', 'GRADE 12C'];
 List<String> streamOptions = [
   'SCIENCE',
   'GENERAL SCIENCE',
@@ -190,28 +197,33 @@ Future<void> confirmSubjects(BuildContext context) async {
       "SURNAME": gsurname,
       "CELL-NUMBER": phoneNumber
     },
+    "STREAM": streamChosen,
     "SUBJECT": subjects,
     "MARKS": marks
   });
-
-  String _text = "A new learner : $names $surname has been added to $grade ";
-  showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: Text(
-            _text,
-            style: const TextStyle(color: Colors.green),
-          ),
-          actions: [
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("OK"))
-          ],
-        );
-      });
+  if (userExists) {
+    errorMessage(context, "$names $surname already exists in $grade");
+    userExists = false;
+  } else {
+    String _text = "A new learner : $names $surname has been added to $grade ";
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Text(
+              _text,
+              style: const TextStyle(color: Colors.green),
+            ),
+            actions: [
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("OK"))
+            ],
+          );
+        });
+  }
 }
 
 errorMessage(BuildContext context, String err) {

@@ -18,7 +18,7 @@ List<DataColumn> _buildColumns() {
   ];
 }
 
-List<dynamic> subjects = loggedInUserDetails["SUBJECTS"];
+List<dynamic> subjects = loggedInUserDetails["SUBJECT"];
 List<List<int>> marks = [];
 
 getMarks() {
@@ -125,6 +125,7 @@ class _ViewMarksState extends State<ViewMarks> {
                 ),
                 const SizedBox(height: 50.0),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Stack(
                       alignment: Alignment.center,

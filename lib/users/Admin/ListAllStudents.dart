@@ -4,6 +4,7 @@ import 'package:owhsapp/Authentication/ValidateLogin.dart';
 import '../../Authentication/ValidateSignUp.dart';
 import '../../LoadingScreen.dart';
 import 'AddLearner.dart';
+import 'AdminDashboard.dart';
 
 class ListAllStudents extends StatefulWidget {
   const ListAllStudents({super.key});
@@ -13,11 +14,10 @@ class ListAllStudents extends StatefulWidget {
 }
 
 class _ListAllStudentsState extends State<ListAllStudents> {
+  List<DataRow> rows = [];
   allStudentsGet() async {
     await getAllStudents();
-    await get12A();
-    await get12B();
-    _showClass = true;
+    // _showClass = true;
   }
 
   @override
@@ -30,11 +30,12 @@ class _ListAllStudentsState extends State<ListAllStudents> {
   final List<String> _dropdownOptions = [
     'GRADE 12A',
     'GRADE 12B',
+    'GRADE 12C',
     "ALL STUDENTS"
   ];
   String? _position;
-  Future<Map<String, dynamic>> grade(String? grade) async =>
-      await getStudents(grade!);
+  // Future<Map<String, dynamic>> grade(String? grade) async =>
+  //     await getStudents(grade!);
   late bool _showClass;
   List<DataColumn> _buildCols() {
     return [
@@ -46,23 +47,58 @@ class _ListAllStudentsState extends State<ListAllStudents> {
     ];
   }
 
+  moreDetail(MapEntry<String, dynamic> student) {
+    String _text =
+        "\n\nFull Name : ${student.key} \n\nID Number : ${student.value["ID-NUMBER"]} " +
+            "\n\n${student.value["GRADE"]}\n\nGuardian : ${student.value["GUARDIAN"]["NAME"]} ${student.value["GUARDIAN"]["SURNAME"]}\n\nCELL NUMBER : ${student.value["GUARDIAN"]["CELL-NUMBER"]}\n";
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Text(
+              _text,
+              style: const TextStyle(color: Colors.black),
+            ),
+            actions: [
+              ElevatedButton(
+                  onPressed: () async {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("OK")),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Show Performance"))
+            ],
+          );
+        });
+  }
+
   List<DataRow> _buildRows(Map<String, dynamic> studentsToShow) {
-    List<DataRow> rows = [];
     List<DataCell> cells = [];
-
+    rows = [];
+    getGrades();
     // Map<String, dynamic> gradeClass = await grade(_position);
-
+    int count = 1;
     for (var student in studentsToShow.entries) {
       cells = [];
       if (student.key != "ClassTeacher") {
-        cells.add(DataCell(Text(student.key)));
-        cells.add(DataCell(Text(student.value["GRADE"] ?? "N/A")));
-        cells.add(DataCell(Text(student.value["ID-NUMBER"].toString())));
-        cells.add(DataCell(Text(
-            "${student.value["GUARDIAN"]["NAME"]} ${student.value["GUARDIAN"]["SURNAME"]}")));
-        cells.add(
-            DataCell(Text(student.value["GUARDIAN"]["CELL-NUMBER"] ?? "N/A")));
+        cells.add(DataCell(Text("$count. ${student.key}"),
+            onTap: () => moreDetail(student)));
+        cells.add(DataCell(Text(student.value["GRADE"] ?? "N/A"),
+            onTap: () => moreDetail(student)));
+        cells.add(DataCell(Text(student.value["ID-NUMBER"].toString()),
+            onTap: () => moreDetail(student)));
+        cells.add(DataCell(
+            Text(
+                "${student.value["GUARDIAN"]["NAME"]} ${student.value["GUARDIAN"]["SURNAME"]}"),
+            onTap: () => moreDetail(student)));
+        cells.add(DataCell(
+            Text(student.value["GUARDIAN"]["CELL-NUMBER"] ?? "N/A"),
+            onTap: () => moreDetail(student)));
         rows.add(DataRow(cells: cells));
+        count++;
       }
     }
 
@@ -70,29 +106,16 @@ class _ListAllStudentsState extends State<ListAllStudents> {
   }
 
   Widget? getTable() {
-    return DataTable(columns: _buildCols(), rows: _buildRows(allStudents));
-  }
-
-  getClass(Map<String, dynamic> className) {
-    return DataTable(columns: _buildCols(), rows: _buildRows(className));
+    return DataTable(columns: _buildCols(), rows: rows);
   }
 
   Widget? displayClass() {
     Widget? widget = loading(context);
-    setState(() {
-      _showClass = true;
-      if (_position == "GRADE 12A") {
-        widget = SingleChildScrollView(
-            scrollDirection: Axis.horizontal, child: getClass(grade12a));
-      }
-      if (_position == "GRADE 12B") {
-        widget = SingleChildScrollView(
-            scrollDirection: Axis.horizontal, child: getClass(grade12b));
-      } else {
-        widget = SingleChildScrollView(
-            scrollDirection: Axis.horizontal, child: getTable());
-      }
-    });
+
+    _showClass = true;
+
+    widget = SingleChildScrollView(
+        scrollDirection: Axis.horizontal, child: getTable());
 
     return widget;
   }
@@ -100,9 +123,7 @@ class _ListAllStudentsState extends State<ListAllStudents> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(""),
-      ),
+      bottomNavigationBar: bottomButtons(context),
       body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
@@ -110,6 +131,9 @@ class _ListAllStudentsState extends State<ListAllStudents> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const SizedBox(
+                  height: 20.0,
+                ),
                 Container(
                   width: 150,
                   height: 150,
@@ -147,6 +171,20 @@ class _ListAllStudentsState extends State<ListAllStudents> {
                     onChanged: (String? value) {
                       setState(() {
                         _position = value;
+                        rows = [];
+                        if (_position!.contains("GRADE 12A")) {
+                          rows = _buildRows(grade12a);
+                        }
+                        if (_position!.contains("GRADE 12B")) {
+                          rows = _buildRows(grade12b);
+                        }
+                        if (_position!.contains("GRADE 12C")) {
+                          rows = _buildRows(grade12c);
+                          print(grade12c);
+                        }
+                        if (_position!.contains("ALL STUDENTS")) {
+                          rows = _buildRows(allStudents);
+                        }
                         displayClass();
                       });
                     }),
@@ -163,7 +201,13 @@ class _ListAllStudentsState extends State<ListAllStudents> {
                             MaterialPageRoute(
                                 builder: (context) => const AddLearner()));
                       },
-                      child: const Text("Add Learner")),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.person_add),
+                          Text("Add Learner"),
+                        ],
+                      )),
                 ),
                 const SizedBox(height: 16.0),
               ],

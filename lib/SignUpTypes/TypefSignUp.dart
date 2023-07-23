@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:owhsapp/SignUpTypes/AdminSignUp.dart';
 import 'package:owhsapp/SignUpTypes/TeacherSignUp.dart';
-import '../TypeOfUser.dart';
-import 'SignUpTypes/SignUpPage.dart';
-import 'HoverTextButton.dart';
+import '../../TypeOfUser.dart';
+import 'SignUpPage.dart';
+import '../HoverTextButton.dart';
 
 class TypeOfSignUp extends StatelessWidget {
   const TypeOfSignUp({super.key});

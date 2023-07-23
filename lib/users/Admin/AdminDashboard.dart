@@ -17,6 +17,44 @@ listAllStudents(BuildContext context) {
       MaterialPageRoute(builder: (context) => const ListAllStudents()));
 }
 
+bottomButtons(BuildContext context) {
+  return BottomAppBar(
+    color: Colors.yellow,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        IconButton(
+          icon: const Icon(Icons.home),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const AdminDashboard()));
+          },
+        ),
+        IconButton(
+          icon: const Icon(Icons.account_balance),
+          onPressed: () {
+            listAllStudents(context);
+          },
+        ),
+        IconButton(
+          icon: const Icon(Icons.group_outlined),
+          onPressed: () {
+            listAllTeachers(context);
+          },
+        ),
+        IconButton(
+          icon: const Icon(Icons.settings),
+          onPressed: () {
+            // Handle settings button tap here
+          },
+        ),
+      ],
+    ),
+  );
+}
+
 class _AdminDashboardState extends State<AdminDashboard> {
   @override
   Widget build(BuildContext context) {
@@ -110,6 +148,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
               ],
             ),
             extendBody: true,
+            bottomNavigationBar: bottomButtons(context),
             body: Container(
               decoration: const BoxDecoration(
                 image: DecorationImage(
