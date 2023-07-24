@@ -173,10 +173,7 @@ void isSuccessfulLogin(
     BuildContext context, String type, bool isCorrectDetails) {
   if (isCorrectDetails) {
     loginPassword.clear();
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => loginType(type)),
-    );
+    Navigator.pushNamedAndRemoveUntil(context, '/dashboard', (route) => false);
   }
 }
 

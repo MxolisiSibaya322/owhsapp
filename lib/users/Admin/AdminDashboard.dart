@@ -26,10 +26,8 @@ bottomButtons(BuildContext context) {
         IconButton(
           icon: const Icon(Icons.home),
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const AdminDashboard()));
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/dashboard', (route) => false);
           },
         ),
         IconButton(
@@ -70,8 +68,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   child: const Text('Yes'),
                   onPressed: () {
                     signOut();
-                    Navigator.of(context).pop(true);
-                    Navigator.of(context).pop(true);
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/login', (route) => false);
                   },
                 ),
                 TextButton(
@@ -131,8 +129,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                         child: const Text('Yes'),
                                         onPressed: () {
                                           signOut();
-                                          Navigator.of(context).pop(true);
-                                          Navigator.of(context).pop(true);
+                                          Navigator.pushNamedAndRemoveUntil(
+                                              context,
+                                              '/login',
+                                              (route) => false);
                                         },
                                       ),
                                       TextButton(
@@ -189,7 +189,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         context: context,
                       ),
                       DashboardButton(
-                        label: 'Learners',
+                        label: 'Stats',
                         context: context,
                       ),
                     ],
@@ -199,7 +199,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     children: [
                       const SizedBox(height: 50),
                       DashboardButton(
-                        label: 'Teachers',
+                        label: 'Link',
                         context: context,
                       ),
                       DashboardButton(
@@ -220,12 +220,8 @@ class DashboardButton extends StatelessWidget {
   final BuildContext context;
   void dashboardSelector(String label) {
     if (label == "Announcements") {}
-    if (label == "Learners") {
-      listAllStudents(context);
-    }
-    if (label == "Teachers") {
-      listAllTeachers(context);
-    }
+    if (label == "Stats") {}
+    if (label == "Link") {}
     if (label == "Portal") {}
   }
 

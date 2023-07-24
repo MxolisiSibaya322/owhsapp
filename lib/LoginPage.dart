@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'Authentication/ValidateLogin.dart';
+
 import 'LoadingScreen.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,8 +12,12 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
+late String _type;
+String getType() {
+  return _type;
+}
+
 class _LoginPageState extends State<LoginPage> {
-  late String _type;
   bool _obscureText = true;
   @override
   void initState() {
@@ -91,6 +97,19 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
           )),
+      persistentFooterButtons: [
+        Center(
+            child: TextButton(
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/landing', (route) => false);
+          },
+          child: const Icon(
+            Icons.home_outlined,
+            color: Colors.black,
+          ),
+        ))
+      ],
     );
   }
 }

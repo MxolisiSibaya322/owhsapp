@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:owhsapp/Authentication/ValidateLogin.dart';
+import 'package:owhsapp/LoginPage.dart';
 import 'SignUpTypes/TypefSignUp.dart';
 import 'TypeOfUser.dart';
 
@@ -26,6 +28,13 @@ class MyApp extends StatelessWidget {
           // colorScheme: const ColorScheme.dark(primary : Colors.black),
           primarySwatch: Colors.yellow,
           splashColor: Colors.black),
+      routes: {
+        "/landing": (context) => const LandingPage(),
+        "/login": (context) => LoginPage(type: getType()),
+        "/dashboard": (context) => loginType(getType()),
+        "/logInType": (context) => const TypeOfUser(),
+        "/signUpType": (context) => const TypeOfSignUp(),
+      },
       home: const LandingPage(),
     );
   }

@@ -186,7 +186,7 @@ class _SignUpPageBState extends State<SignUpPageB> {
                           context, "Please set a stronger paasword");
                       return;
                     }
-                    if (!isMatchingPassword) {
+                    if (!isMatchingPassword || password.isEmpty) {
                       await errorMessage(context, "Passwords should match");
                       return;
                     }

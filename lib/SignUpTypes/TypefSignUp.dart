@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:owhsapp/SignUpTypes/AdminSignUp.dart';
 import 'package:owhsapp/SignUpTypes/TeacherSignUp.dart';
-import '../../TypeOfUser.dart';
+
 import 'SignUpPage.dart';
 import '../HoverTextButton.dart';
 
@@ -125,10 +125,8 @@ class TypeOfSignUp extends StatelessWidget {
           defaultStyle: const TextStyle(color: Colors.black),
           hoverStyle: const TextStyle(color: Colors.yellow),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const TypeOfUser()),
-            );
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/logInType', (route) => false);
           },
           text: 'Already have an account? Log In',
         ))

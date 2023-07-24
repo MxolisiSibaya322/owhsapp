@@ -4,6 +4,43 @@ import 'package:owhsapp/users/Learner/ViewMarks.dart';
 
 import '../../Authentication/Authentication.dart';
 
+bottomButtonsLearner(BuildContext context) {
+  return BottomAppBar(
+    color: Colors.yellow,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        IconButton(
+          icon: const Icon(Icons.home),
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/dashboard', (route) => false);
+          },
+        ),
+        IconButton(
+          icon: const Icon(Icons.grade_outlined),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ViewMarks()),
+            );
+          },
+        ),
+        IconButton(
+          icon: const Icon(Icons.group_outlined),
+          onPressed: () {},
+        ),
+        IconButton(
+          icon: const Icon(Icons.settings),
+          onPressed: () {
+            // Handle settings button tap here
+          },
+        ),
+      ],
+    ),
+  );
+}
+
 class LearnerDashboard extends StatelessWidget {
   const LearnerDashboard({super.key});
 
@@ -21,8 +58,8 @@ class LearnerDashboard extends StatelessWidget {
                 child: const Text('Yes'),
                 onPressed: () {
                   signOut();
-                  Navigator.of(context).pop(true);
-                  Navigator.of(context).pop(true);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, '/login', (route) => false);
                 },
               ),
               TextButton(
@@ -82,8 +119,10 @@ class LearnerDashboard extends StatelessWidget {
                                       child: const Text('Yes'),
                                       onPressed: () {
                                         signOut();
-                                        Navigator.of(context).pop(true);
-                                        Navigator.of(context).pop(true);
+                                        Navigator.pushNamedAndRemoveUntil(
+                                            context,
+                                            '/login',
+                                            (route) => false);
                                       },
                                     ),
                                     TextButton(
@@ -99,6 +138,7 @@ class LearnerDashboard extends StatelessWidget {
             ],
           ),
           extendBody: true,
+          bottomNavigationBar: bottomButtonsLearner(context),
           body: Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -158,12 +198,7 @@ class DashboardButton extends StatelessWidget {
   const DashboardButton({super.key, required this.label});
   void dashboardSelector(String label, BuildContext context) {
     if (label == "Announcements") {}
-    if (label == "View Marks") {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const ViewMarks()),
-      );
-    }
+    if (label == "View Marks") {}
     if (label == "TimeTable") {}
     if (label == "Learner Portal") {}
     if (label == "Resources") {}
