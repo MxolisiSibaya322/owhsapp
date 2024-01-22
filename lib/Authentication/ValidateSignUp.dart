@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:owhsapp/DetailCollection/learnerDetailsCollection.dart';
 
 final _db = FirebaseFirestore.instance;
 Map<String, dynamic> allStudents = {};
@@ -45,10 +46,29 @@ Future<void> addLearner(Map<String, dynamic> details) async {
 
 Future<void> addTeacher(Map<String, dynamic> details) async {
   details["TYPE"] = "teacher";
+  DocumentReference docGen = await _db
+      .collection("teachers")
+      .doc('${details["NAME"]} ${details["SURNAME"]}');
+
+  await docGen.get().then((value) => _givenData = value.data());
+  if (_givenData == null) {
+    docGen.set(details);
+  } else {
+    userExists = true;
+  }
 }
 
 Future<void> addAdmin(Map<String, dynamic> details) async {
   details["TYPE"] = "admin";
+  DocumentReference docGen =
+      await _db.collection("admins").doc(userDetails["POSITION"]);
+
+  await docGen.get().then((value) => _givenData = value.data());
+  if (_givenData == null) {
+    docGen.set(details);
+  } else {
+    userExists = true;
+  }
 }
 
 Future<void> updateStudent(
