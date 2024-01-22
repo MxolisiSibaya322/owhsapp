@@ -1,6 +1,6 @@
 # Orlando West High School App
 
-![App Logo](https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images/badge.png)
+<img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images/badge.png" alt= "App Logo" width = "300" height = "300">
 
 Welcome to the Orlando West High School App, a centralized platform designed to enhance communication and collaboration among teachers, learners, and administrative staff. This Flutter application utilizes Firebase for a secure and efficient database management system.
 
@@ -21,22 +21,22 @@ Welcome to the Orlando West High School App, a centralized platform designed to 
 
 ## Screenshots
 
-![landing page](https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/landing.jpeg)
+ <img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/landing.jpeg" alt="Landing" width= "100" height = "100"/>
 *Landing Page of the app*
 
-![login page](https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/login.jpeg)
+<img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/login.jpeg" alt="login page" width ="100" height ="100"/>
 *Login Page*
 
-![Dashboard page](https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/dashboard.jpeg)
+<img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/dashboard.jpeg" alt="dashboard" width ="100" height ="100" />
 *Once Signed up and logged in you will be taken to the dashboard and acces certain functionality depending on the type of user you are logged in as*
 
-![report page](https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/report.jpeg)
+<img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/report.jpeg"width ="100" height ="100"/>
 *As a learner I am able to view my report  *
 
-![add Learner page](https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/addLearner.jpeg)
+<img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/addLearner.jpeg"width ="100" height ="100"/>
 *As an admin I am able to add a new learner and view their performance, grade, next of kin and all other relevant info  *
 
-![add teacher page](https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/addTeacher.jpeg)
+<img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/addTeacher.jpeg)" width ="100" height ="100" />
 *As an admin I am able to add a new teacher and view their performance, subjects, next of kin and all other relevant info  *
 
 
