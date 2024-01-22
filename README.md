@@ -21,22 +21,22 @@ Welcome to the Orlando West High School App, a centralized platform designed to 
 
 ## Screenshots
 
- <img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/landing.jpeg" alt="Landing" width= "100" height = "100"/>
+ <img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/landing.jpeg" alt="Landing" width= "300" />
 *Landing Page of the app*
 
-<img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/login.jpeg" alt="login page" width ="100" height ="100"/>
+<img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/login.jpeg" alt="login page" width ="300" />
 *Login Page*
 
-<img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/dashboard.jpeg" alt="dashboard" width ="100" height ="100" />
+<img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/dashboard.jpeg" alt="dashboard" width ="300"  />
 *Once Signed up and logged in you will be taken to the dashboard and acces certain functionality depending on the type of user you are logged in as*
 
-<img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/report.jpeg"width ="100" height ="100"/>
+<img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/report.jpeg"width ="300" height ="300"/>
 *As a learner I am able to view my report  *
 
-<img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/addLearner.jpeg"width ="100" height ="100"/>
+<img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/addLearner.jpeg"width ="300" />
 *As an admin I am able to add a new learner and view their performance, grade, next of kin and all other relevant info  *
 
-<img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/addTeacher.jpeg)" width ="100" height ="100" />
+<img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/addTeacher.jpeg)" width ="300"  />
 *As an admin I am able to add a new teacher and view their performance, subjects, next of kin and all other relevant info  *
 
 
