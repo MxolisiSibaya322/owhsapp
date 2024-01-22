@@ -31,7 +31,7 @@ Welcome to the Orlando West High School App, a centralized platform designed to 
 <b>Once Signed up and logged in you will be taken to the dashboard and acces certain 
 functionality depending on the type of user you are logged in as</b>
 
-<img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/report.jpeg"width ="300" height ="300"/>
+<img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/report.jpeg" width ="300" height ="300"/>
 <b>As a learner I am able to view my report  </b>
 
 <img src="https://raw.githubusercontent.com/MxolisiSibaya322/owhsapp/main/assets/images//stills/addLearner.jpeg" width ="300" />
